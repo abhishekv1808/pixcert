@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Contact Us — Pixcert | Web Development & Digital Services",
   description:
     "Get in touch with Pixcert for web development, UI/UX design, social media management, and AI automation services in Bangalore. Request a free quote today.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function Contact() {

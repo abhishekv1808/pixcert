@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Portfolio — Case Studies & Client Work | Pixcert",
   description:
     "Explore our portfolio of web development, e-commerce, and fintech projects. See how we helped brands in Bangalore and beyond grow with high-performing websites.",
+  alternates: { canonical: "/portfolio" },
 };
 
 export default function Portfolio() {

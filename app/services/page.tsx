@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Our Services — Pixcert",
   description:
     "Web development, e-commerce, UI/UX design, social media, AI automation, SEO, web apps, and maintenance — full-service digital solutions from Bangalore.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {

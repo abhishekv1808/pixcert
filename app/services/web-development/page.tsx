@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "Website Development in Bangalore — Pixcert",
   description:
     "Fast, SEO-ready websites built on Next.js, WordPress, and Shopify. Business sites, e-commerce stores, landing pages, and web portals — launched in 2-3 weeks.",
+  alternates: { canonical: "/services/web-development" },
 };
 
 export default function WebDevelopmentPage() {

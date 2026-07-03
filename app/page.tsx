@@ -15,6 +15,11 @@ import QuoteForm from "@/components/sections/QuoteForm";
 import DiscoveryCall from "@/components/sections/DiscoveryCall";
 import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
