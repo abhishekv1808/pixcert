@@ -17,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pixcert.com"),
+  metadataBase: new URL("https://www.pixcert.in"),
   title: "Pixcert — Web Development, Design & Digital Growth | Bangalore",
   description:
     "Pixcert is a Bangalore-based IT services agency crafting high-performing websites, striking brand design, and social media growth for startups and enterprises.",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "Pixcert — Web Development, Design & Digital Growth | Bangalore",
     description:
       "We help brands grow with scalable websites, standout design, and data-driven social media. Based in Bangalore, building for the world.",
-    url: "https://pixcert.com",
+    url: "https://www.pixcert.in",
     siteName: "Pixcert",
     locale: "en_IN",
     type: "website",

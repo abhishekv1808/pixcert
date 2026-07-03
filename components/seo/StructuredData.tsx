@@ -8,7 +8,7 @@
  * asserting placeholder root domains (linkedin.com, etc.) would be incorrect.
  * Add them here once the real Pixcert profiles are live.
  */
-const BASE_URL = "https://pixcert.com";
+const BASE_URL = "https://www.pixcert.in";
 
 export default function StructuredData() {
   const graph = {
