@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronRight, Sparkle } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, SplitText, prefersReducedMotion } from "@/lib/gsap";
 
@@ -18,31 +18,6 @@ const SCREENSHOTS_ROW_1 = [
   "/images/site-fusebase.png",
   "/images/site-talkbase.png",
   "/images/site-openlayer.png",
-];
-
-const SCREENSHOTS_ROW_2 = [
-  "/images/site-openlayer.png",
-  "/images/site-talkbase.png",
-  "/images/site-fusebase.png",
-  "/images/site-headshotpro.png",
-  "/images/site-zixflow.png",
-  "/images/site-kosmik.png",
-  "/images/site-breyta.png",
-];
-
-/* ------------------------------------------------------------------ */
-/*  Tech / brand marquee labels                                        */
-/* ------------------------------------------------------------------ */
-
-const TECH_LABELS = [
-  "Next.js",
-  "React",
-  "WordPress",
-  "Shopify",
-  "Tailwind CSS",
-  "Node.js",
-  "TypeScript",
-  "Vercel",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -107,16 +82,10 @@ export default function WebDevHero() {
             1.1,
           )
           .fromTo(
-            "[data-wdh-marquee]",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.6 },
-            1.2,
-          )
-          .fromTo(
             "[data-wdh-images]",
             { y: 40, autoAlpha: 0 },
             { y: 0, autoAlpha: 1, duration: 0.8 },
-            1.3,
+            1.2,
           );
       };
 
@@ -220,32 +189,11 @@ export default function WebDevHero() {
           </p>
         </div>
 
-        {/* Tech marquee */}
-        <div
-          data-wdh-marquee
-          className="relative z-10 mt-16 overflow-hidden border-y border-ink/[0.06] py-4"
-        >
-          <div className="marquee-track flex w-max items-center">
-            {[...TECH_LABELS, ...TECH_LABELS].map((label, i) => (
-              <span key={`${label}-${i}`} className="flex items-center">
-                <span className="whitespace-nowrap px-6 text-sm font-semibold text-ink/40 sm:px-8 sm:text-base">
-                  {label}
-                </span>
-                <Sparkle
-                  aria-hidden="true"
-                  className="size-3 text-ink/20"
-                />
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Horizontal auto-scrolling screenshots */}
+        {/* Horizontal auto-scrolling screenshots — single row */}
         <div
           data-wdh-images
-          className="relative z-10 space-y-5 overflow-hidden pb-10 pt-8"
+          className="relative z-10 mt-16 overflow-hidden pb-10 pt-8"
         >
-          {/* Row 1 — scrolls left */}
           <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <div className="webdev-scroll-row flex w-max gap-5">
               {[...SCREENSHOTS_ROW_1, ...SCREENSHOTS_ROW_1].map((src, i) => (
@@ -255,23 +203,7 @@ export default function WebDevHero() {
                   src={src}
                   alt=""
                   loading={i < 7 ? "eager" : "lazy"}
-                  className="h-48 w-auto rounded-xl border border-ink/[0.08] shadow-lg transition-transform duration-300 hover:scale-[1.03] sm:h-56 lg:h-64"
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Row 2 — scrolls right (reverse) */}
-          <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-            <div className="webdev-scroll-row webdev-scroll-row-reverse flex w-max gap-5">
-              {[...SCREENSHOTS_ROW_2, ...SCREENSHOTS_ROW_2].map((src, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={`r2-${i}`}
-                  src={src}
-                  alt=""
-                  loading="lazy"
-                  className="h-48 w-auto rounded-xl border border-ink/[0.08] shadow-lg transition-transform duration-300 hover:scale-[1.03] sm:h-56 lg:h-64"
+                  className="h-64 w-auto rounded-xl border border-ink/[0.08] shadow-lg transition-transform duration-300 hover:scale-[1.03] sm:h-80 lg:h-[22rem]"
                 />
               ))}
             </div>

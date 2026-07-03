@@ -64,10 +64,10 @@ const SOCIALS = [
 ];
 
 const POLICY_LINKS = [
-  { label: "Terms of Service", href: "#" },
+  { label: "Terms of Service", href: "/terms" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Refund Policy", href: "#" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Refund Policy", href: "/refund" },
 ];
 
 export default function Footer() {

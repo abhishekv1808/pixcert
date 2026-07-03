@@ -186,8 +186,8 @@ export default function Navbar() {
         className={cn(
           "pointer-events-auto flex w-full max-w-5xl items-center justify-between gap-8 rounded-full border pl-6 pr-2.5 backdrop-blur-xl transition-all duration-500",
           scrolled
-            ? "border-white/15 bg-white/[0.08] py-2 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
-            : "border-white/10 bg-white/[0.05] py-2.5 shadow-[0_4px_24px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.06)]",
+            ? "border-white/15 bg-dark/80 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.08)]"
+            : "border-white/10 bg-dark/60 py-2.5 shadow-[0_4px_24px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.06)]",
         )}
       >
         <Link
