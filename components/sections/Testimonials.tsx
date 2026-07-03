@@ -122,7 +122,7 @@ export default function Testimonials() {
         </div>
         <h2
           data-reveal
-          className="mt-4 font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl"
+          className="mt-4 font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl"
         >
           Loved by founders &amp; teams
         </h2>

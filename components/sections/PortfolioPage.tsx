@@ -373,7 +373,7 @@ function CaseStudySection({
               {study.duration}
             </span>
           </div>
-          <h2 className="mt-5 max-w-2xl font-heading text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-5 max-w-2xl font-heading text-2xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
             {study.client}
           </h2>
           <p className="mt-2 max-w-lg text-base font-medium text-white/70 sm:text-lg">
@@ -616,7 +616,7 @@ export default function PortfolioPage() {
               Our Work
             </SectionEyebrow>
 
-            <h1 className="mt-6 max-w-3xl font-heading text-[2.65rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-3xl font-heading text-[2rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
               Stories Behind the Websites We Build
             </h1>
 
@@ -662,7 +662,7 @@ export default function PortfolioPage() {
               aria-hidden="true"
               className="grain-overlay absolute inset-0 rounded-3xl"
             />
-            <h2 className="relative z-10 max-w-xl font-heading text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+            <h2 className="relative z-10 max-w-xl font-heading text-2xl font-bold text-white sm:text-4xl lg:text-5xl">
               Ready to be our next success story?
             </h2>
             <p className="relative z-10 mt-5 max-w-md text-sm leading-relaxed text-white/60">

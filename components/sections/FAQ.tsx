@@ -74,7 +74,7 @@ export default function FAQ() {
       <div className="mx-auto grid max-w-6xl gap-14 px-6 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <SectionEyebrow tone="light">FAQ</SectionEyebrow>
-          <h2 className="mt-4 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
             Questions, answered
           </h2>
           <p className="mt-5 max-w-sm leading-relaxed text-white/55">

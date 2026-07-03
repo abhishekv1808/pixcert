@@ -79,7 +79,7 @@ export default function About() {
         {/* Left: copy */}
         <div data-about-copy>
           <SectionEyebrow>About Us</SectionEyebrow>
-          <h2 className="mt-4 font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
             About our passionate digital team
           </h2>
           <p className="mt-5 max-w-md leading-relaxed text-body">

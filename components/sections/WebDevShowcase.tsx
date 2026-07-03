@@ -113,7 +113,7 @@ export default function WebDevShowcase() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <SectionEyebrow>Recent Builds</SectionEyebrow>
-            <h2 className="mt-4 max-w-xl font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            <h2 className="mt-4 max-w-xl font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
               Websites we&apos;ve designed &amp; shipped
             </h2>
           </div>
@@ -142,7 +142,7 @@ export default function WebDevShowcase() {
                   </span>
                 ))}
               </div>
-              <h3 className="mt-5 font-heading text-3xl font-bold text-white">
+              <h3 className="mt-5 font-heading text-2xl font-bold text-white sm:text-3xl">
                 {FEATURED.name}
               </h3>
               <p className="mt-2 text-sm text-white/60">{FEATURED.category}</p>

@@ -147,7 +147,7 @@ export default function LegalPage({
               {eyebrow}
             </SectionEyebrow>
 
-            <h1 className="mt-6 max-w-3xl font-heading text-[2.65rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-3xl font-heading text-[2rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
               {title}
             </h1>
 
@@ -258,14 +258,14 @@ export default function LegalPage({
                     <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
                   </a>
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+916360354678"
                     className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-primary hover:bg-primary"
                   >
                     <Phone className="size-4" />
-                    +91 98765 43210
+                    +91 63603 54678
                   </a>
                   <a
-                    href="https://wa.me/919876543210"
+                    href="https://wa.me/916360354678"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-emerald-500 hover:bg-emerald-600"

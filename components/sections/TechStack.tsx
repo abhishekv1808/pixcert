@@ -100,7 +100,7 @@ export default function TechStack() {
             <SectionEyebrow tone="light" align="center">
               Our Technology Stack
             </SectionEyebrow>
-            <h2 className="mx-auto mt-4 max-w-2xl font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+            <h2 className="mx-auto mt-4 max-w-2xl font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
               Powering digital solutions with modern technology
             </h2>
           </div>

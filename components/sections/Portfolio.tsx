@@ -87,7 +87,7 @@ export default function Portfolio() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <SectionEyebrow>Our Portfolio</SectionEyebrow>
-            <h2 className="mt-4 font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
               Our recent work
             </h2>
           </div>

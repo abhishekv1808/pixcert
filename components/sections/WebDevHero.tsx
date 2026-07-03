@@ -157,7 +157,7 @@ export default function WebDevHero() {
           {/* Headline */}
           <h1
             ref={headlineRef}
-            className="mt-8 max-w-3xl font-heading text-[2.65rem] font-bold leading-[1.07] text-ink sm:text-6xl lg:text-7xl"
+            className="mt-8 max-w-3xl font-heading text-[2rem] font-bold leading-[1.07] text-ink sm:text-6xl lg:text-7xl"
           >
             Websites Built to Perform, Rank & Convert
           </h1>

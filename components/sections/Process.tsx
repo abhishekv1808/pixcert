@@ -90,7 +90,7 @@ export default function Process() {
           <SectionEyebrow tone="light" align="center">
             How We Work
           </SectionEyebrow>
-          <h2 className="mt-4 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+          <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
             From idea to launch in four steps
           </h2>
         </div>

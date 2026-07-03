@@ -63,7 +63,7 @@ export default function CTABanner() {
         data-cta-inner
         className="mx-auto flex max-w-7xl flex-col items-center rounded-3xl bg-primary px-6 py-14 text-center sm:py-16"
       >
-        <h2 className="max-w-2xl font-heading text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
+        <h2 className="max-w-2xl font-heading text-2xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
           Have a project in mind? Let&apos;s build it together.
         </h2>
         <p className="mt-4 max-w-xl text-sm text-white/85 sm:text-base">

@@ -75,7 +75,7 @@ export default function Services() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <SectionEyebrow tone="light">Our Services</SectionEyebrow>
-            <h2 className="mt-4 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+            <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
               Services we provide
             </h2>
           </div>

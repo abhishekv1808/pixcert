@@ -141,7 +141,7 @@ export default function QuoteForm() {
                 />
                 2 Spots Left
               </span>
-              <h2 className="mt-5 font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl">
+              <h2 className="mt-5 font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
                 Get your price within 24 hours
               </h2>
             </div>
@@ -227,7 +227,7 @@ export default function QuoteForm() {
         >
           <div className="max-w-xs">
             <div className="flex flex-wrap items-center gap-4">
-              <h2 className="font-heading text-3xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                 Not Sure Yet?
               </h2>
               <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink">

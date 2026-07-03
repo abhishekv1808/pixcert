@@ -151,7 +151,7 @@ export default function CoreFeatures() {
           <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
             <div>
               <SectionEyebrow tone="light">Our Core Features</SectionEyebrow>
-              <h2 className="mt-4 max-w-xl font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+              <h2 className="mt-4 max-w-xl font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
                 Powerful features that set our web solutions apart
               </h2>
             </div>

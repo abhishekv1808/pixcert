@@ -161,7 +161,7 @@ export default function Hero() {
 
           <h1
             ref={headlineRef}
-            className="mt-8 max-w-4xl font-heading text-[2.65rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl xl:text-[80px]"
+            className="mt-8 max-w-4xl font-heading text-[2rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl xl:text-[80px]"
           >
             We help brands grow with Scalable Websites
           </h1>
@@ -190,7 +190,7 @@ export default function Hero() {
                 className="flex items-center gap-6 rounded-lg bg-white/[0.13] p-6 text-left backdrop-blur-md"
               >
                 <div className="shrink-0">
-                  <p className="font-heading text-4xl font-bold text-white sm:text-[2.6rem]">
+                  <p className="font-heading text-3xl font-bold text-white sm:text-[2.6rem]">
                     <span data-counter={stat.value}>{stat.value}</span>
                     {stat.suffix}
                   </p>

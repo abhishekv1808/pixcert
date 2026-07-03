@@ -35,8 +35,8 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     label: "Call Us",
-    value: "+91 98765 43210",
-    href: "tel:+919876543210",
+    value: "+91 63603 54678",
+    href: "tel:+916360354678",
     description: "Mon – Fri, 10 AM – 7 PM IST",
   },
   {
@@ -255,7 +255,7 @@ export default function ContactPage() {
               Get In Touch
             </SectionEyebrow>
 
-            <h1 className="mt-6 max-w-3xl font-heading text-[2.65rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-3xl font-heading text-[2rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
               Let&apos;s Build Something Great Together
             </h1>
 
@@ -275,14 +275,14 @@ export default function ContactPage() {
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
               </a>
               <a
-                href="tel:+919876543210"
+                href="tel:+916360354678"
                 className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-primary hover:bg-primary"
               >
                 <Phone className="size-4" />
                 Call Now
               </a>
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/916360354678"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-emerald-500 hover:bg-emerald-600"
@@ -377,7 +377,7 @@ export default function ContactPage() {
                     2 Spots Left This Month
                   </span>
 
-                  <h2 className="mt-5 font-heading text-3xl font-bold leading-tight text-white sm:text-4xl">
+                  <h2 className="mt-5 font-heading text-2xl font-bold leading-tight text-white sm:text-4xl">
                     Let&apos;s discuss your project
                   </h2>
 
@@ -409,11 +409,11 @@ export default function ContactPage() {
                       hello@pixcert.com
                     </a>
                     <a
-                      href="tel:+919876543210"
+                      href="tel:+916360354678"
                       className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
                     >
                       <Phone className="size-4 text-primary" />
-                      +91 98765 43210
+                      +91 63603 54678
                     </a>
                   </div>
                 </div>
@@ -546,7 +546,7 @@ export default function ContactPage() {
           >
             <div className="max-w-sm">
               <div className="flex flex-wrap items-center gap-4">
-                <h2 className="font-heading text-3xl font-bold text-white">
+                <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
                   Prefer a Call?
                 </h2>
                 <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink">

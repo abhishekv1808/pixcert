@@ -80,7 +80,7 @@ export default function ServiceHero({ slug }: { slug: string }) {
             {service.eyebrow}
           </SectionEyebrow>
 
-          <h1 className="mt-6 max-w-3xl font-heading text-[2.65rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
+          <h1 className="mt-6 max-w-3xl font-heading text-[2rem] font-bold leading-[1.07] text-white sm:text-6xl lg:text-7xl">
             {service.headline}
           </h1>
 

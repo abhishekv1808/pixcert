@@ -34,7 +34,7 @@ export default function StructuredData() {
         url: BASE_URL,
         image: `${BASE_URL}/og-image.png`,
         email: "hello@pixcert.com",
-        telephone: "+91-98765-43210",
+        telephone: "+91-63603-54678",
         priceRange: "$$",
         parentOrganization: { "@id": `${BASE_URL}/#organization` },
         address: {

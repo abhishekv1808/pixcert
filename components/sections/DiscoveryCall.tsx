@@ -43,10 +43,10 @@ export default function DiscoveryCall() {
         >
           <Logo variant="black" />
 
-          <p className="mt-10 font-heading text-3xl font-bold text-ink/35 sm:text-4xl">
+          <p className="mt-10 font-heading text-2xl font-bold text-ink/35 sm:text-4xl">
             Still not sure?
           </p>
-          <h2 className="mt-1 font-heading text-3xl font-bold leading-tight text-ink sm:text-4xl">
+          <h2 className="mt-1 font-heading text-2xl font-bold leading-tight text-ink sm:text-4xl">
             Book a free discovery call.
           </h2>
 

@@ -85,7 +85,7 @@ export default function WebDevTypes() {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <SectionEyebrow>What We Build</SectionEyebrow>
-            <h2 className="mt-4 max-w-xl font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            <h2 className="mt-4 max-w-xl font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
               Every kind of website your business needs
             </h2>
           </div>

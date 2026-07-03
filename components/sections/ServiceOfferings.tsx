@@ -50,7 +50,7 @@ export default function ServiceOfferings({ slug }: { slug: string }) {
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div>
             <SectionEyebrow>{service.offeringsEyebrow}</SectionEyebrow>
-            <h2 className="mt-4 max-w-xl font-heading text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            <h2 className="mt-4 max-w-xl font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
               {service.offeringsTitle}
             </h2>
           </div>

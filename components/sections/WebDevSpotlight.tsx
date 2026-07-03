@@ -86,7 +86,7 @@ export default function WebDevSpotlight() {
           {/* Copy + metrics */}
           <div data-spotlight-copy>
             <SectionEyebrow tone="light">Case Spotlight</SectionEyebrow>
-            <h2 className="mt-4 max-w-md font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+            <h2 className="mt-4 max-w-md font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
               Pixel-perfect builds that move the numbers
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/65 sm:text-base">

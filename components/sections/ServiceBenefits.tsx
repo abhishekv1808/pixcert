@@ -72,7 +72,7 @@ export default function ServiceBenefits({ slug }: { slug: string }) {
             <SectionEyebrow tone="light">
               {service.benefitsEyebrow}
             </SectionEyebrow>
-            <h2 className="mt-4 max-w-md font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">
+            <h2 className="mt-4 max-w-md font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">
               {service.benefitsTitle}
             </h2>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/65 sm:text-base">

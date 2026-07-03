@@ -59,7 +59,7 @@ export default function ServicesHero() {
             </ol>
           </nav>
 
-          <h1 className="mt-7 max-w-3xl font-heading text-4xl font-bold leading-tight text-white sm:text-6xl">
+          <h1 className="mt-7 max-w-3xl font-heading text-3xl font-bold leading-tight text-white sm:text-6xl">
             Services that grow your business online
           </h1>
 

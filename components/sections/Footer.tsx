@@ -81,7 +81,7 @@ export default function Footer() {
         />
 
         {/* Headline */}
-        <h2 className="mt-10 font-heading text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+        <h2 className="mt-10 font-heading text-4xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
           <span className="text-white">Think </span>
           <span className="text-white/40">Pixcert</span>
           <br />
@@ -107,7 +107,7 @@ export default function Footer() {
               Whatsapp
             </p>
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/916360354678"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2.5 inline-block text-lg font-medium text-white transition-colors hover:text-primary sm:text-xl"
