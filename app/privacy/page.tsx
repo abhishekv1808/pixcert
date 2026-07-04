@@ -4,9 +4,9 @@ import Footer from "@/components/sections/Footer";
 import LegalPage, { type LegalSection } from "@/components/sections/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Pixcert | Web Development & Digital Services",
+  title: "Privacy Policy — ITBIZONE | Web Development & Digital Services",
   description:
-    "Learn how Pixcert collects, uses, stores, and protects your personal data, your privacy rights, and how to contact us about your information.",
+    "Learn how ITBIZONE collects, uses, stores, and protects your personal data, your privacy rights, and how to contact us about your information.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -19,7 +19,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <p>
-          <strong>Pixcert</strong> (&quot;Pixcert&quot;, &quot;we&quot;,
+          <strong>ITBIZONE</strong> (&quot;ITBIZONE&quot;, &quot;we&quot;,
           &quot;us&quot;, or &quot;our&quot;) is committed to protecting your
           privacy. This Privacy Policy explains what information we collect when
           you visit our website or engage our services, how we use it, and the
@@ -179,7 +179,7 @@ const SECTIONS: LegalSection[] = [
         </ul>
         <p>
           To exercise any of these rights, contact us at{" "}
-          <a href="mailto:hello@pixcert.com">hello@pixcert.com</a>. We will
+          <a href="mailto:info@itbizone.com">info@itbizone.com</a>. We will
           respond within a reasonable timeframe.
         </p>
       </>
@@ -228,8 +228,8 @@ const SECTIONS: LegalSection[] = [
       <p>
         If you have questions about this Privacy Policy or how we handle your
         data, contact us at{" "}
-        <a href="mailto:hello@pixcert.com">hello@pixcert.com</a> or through our{" "}
-        <a href="/contact">contact page</a>. Pixcert is based in Bangalore,
+        <a href="mailto:info@itbizone.com">info@itbizone.com</a> or through our{" "}
+        <a href="/contact">contact page</a>. ITBIZONE is based in Bangalore,
         Karnataka, India.
       </p>
     ),
@@ -244,7 +244,7 @@ export default function PrivacyPolicy() {
         <LegalPage
           eyebrow="Legal"
           title="Privacy Policy"
-          description="How Pixcert collects, uses, and protects your personal information — and the rights you have over your data."
+          description="How ITBIZONE collects, uses, and protects your personal information — and the rights you have over your data."
           breadcrumb="Privacy Policy"
           lastUpdated={LAST_UPDATED}
           intro={

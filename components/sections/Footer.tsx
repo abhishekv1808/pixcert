@@ -57,10 +57,22 @@ function XIcon({ className }: { className?: string }) {
 }
 
 const SOCIALS = [
-  { label: "LinkedIn", icon: LinkedInIcon, href: "https://linkedin.com" },
-  { label: "Instagram", icon: InstagramIcon, href: "https://instagram.com" },
-  { label: "Facebook", icon: FacebookIcon, href: "https://facebook.com" },
-  { label: "X (Twitter)", icon: XIcon, href: "https://x.com" },
+  {
+    label: "LinkedIn",
+    icon: LinkedInIcon,
+    href: "https://www.linkedin.com/company/itbizone-technologies/",
+  },
+  {
+    label: "Instagram",
+    icon: InstagramIcon,
+    href: "https://www.instagram.com/itbizone/",
+  },
+  {
+    label: "Facebook",
+    icon: FacebookIcon,
+    href: "https://www.facebook.com/itbizone.tech/",
+  },
+  { label: "X (Twitter)", icon: XIcon, href: "https://x.com/itbizOne" },
 ];
 
 const POLICY_LINKS = [
@@ -83,7 +95,7 @@ export default function Footer() {
         {/* Headline */}
         <h2 className="mt-10 font-heading text-4xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
           <span className="text-white">Think </span>
-          <span className="text-white/40">Pixcert</span>
+          <span className="text-white/40">ITBIZONE</span>
           <br />
           <span className="text-white/40">You&apos;re in good hands</span>
         </h2>
@@ -95,10 +107,10 @@ export default function Footer() {
               Email
             </p>
             <a
-              href="mailto:hello@pixcert.com"
+              href="mailto:info@itbizone.com"
               className="mt-2.5 inline-block text-lg font-medium text-white transition-colors hover:text-primary sm:text-xl"
             >
-              hello@pixcert.com
+              info@itbizone.com
             </a>
           </div>
 
@@ -107,7 +119,7 @@ export default function Footer() {
               Whatsapp
             </p>
             <a
-              href="https://wa.me/916360354678"
+              href="https://wa.me/919535111129"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2.5 inline-block text-lg font-medium text-white transition-colors hover:text-primary sm:text-xl"
@@ -164,7 +176,7 @@ export default function Footer() {
             ))}
           </nav>
 
-          <p className="shrink-0 text-white/60">© 2026 Pixcert</p>
+          <p className="shrink-0 text-white/60">© 2026 ITBIZONE</p>
         </div>
       </div>
 
@@ -174,7 +186,7 @@ export default function Footer() {
         className="pointer-events-none relative mt-8 h-[15vw] select-none overflow-hidden sm:mt-12"
       >
         <span className="absolute inset-x-0 top-0 block whitespace-nowrap text-center font-heading text-[27vw] font-bold leading-none tracking-tight text-white">
-          Pixcert
+          ITBIZONE
         </span>
       </div>
     </footer>

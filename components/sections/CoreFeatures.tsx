@@ -69,11 +69,11 @@ const FEATURES = [
 const EXPERTS = [
   {
     src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=160&auto=format&fit=crop",
-    alt: "Pixcert developer portrait",
+    alt: "ITBIZONE developer portrait",
   },
   {
     src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=160&auto=format&fit=crop",
-    alt: "Pixcert designer portrait",
+    alt: "ITBIZONE designer portrait",
   },
 ];
 

@@ -133,7 +133,7 @@ export default function WebDevSpotlight() {
               <div className="h-[24rem] overflow-hidden sm:h-[28rem]">
                 <img
                   src="/images/site-openlayer.png"
-                  alt="Openlayer website built by Pixcert"
+                  alt="Openlayer website built by ITBIZONE"
                   loading="lazy"
                   className="w-full"
                 />

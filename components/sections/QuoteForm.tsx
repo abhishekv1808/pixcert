@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  Calendar,
-  Check,
   ChevronDown,
   Coffee,
   FileText,
@@ -28,12 +26,7 @@ const ENQUIRY_SOURCES = [
   "Not sure yet",
 ];
 
-const CONSULT_POINTS = [
-  "No commitments",
-  "Personalized guidance",
-  "15-minute clarity call",
-  "Ask anything before you decide",
-];
+
 
 function SelectField({
   label,
@@ -108,15 +101,15 @@ export default function QuoteForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const body = [
-      "Hi Pixcert, I'd like a quote.",
+      "Hi ITBIZONE, I'd like a quote.",
       "",
       `Website type: ${websiteType || "Not selected"}`,
       `Enquiry sources: ${enquirySource || "Not selected"}`,
       `Phone: ${phone ? `+91 ${phone}` : "Not provided"}`,
       `Email: ${email || "Not provided"}`,
     ].join("\n");
-    window.location.href = `mailto:hello@pixcert.com?subject=${encodeURIComponent(
-      "Quote Request — Pixcert"
+    window.location.href = `mailto:info@itbizone.com?subject=${encodeURIComponent(
+      "Quote Request — ITBIZONE"
     )}&body=${encodeURIComponent(body)}`;
   };
 
@@ -220,49 +213,7 @@ export default function QuoteForm() {
           </div>
         </div>
 
-        {/* Not Sure Yet? banner */}
-        <div
-          data-quote-block
-          className="mt-5 flex flex-col gap-9 rounded-3xl bg-dark p-9 sm:p-11 lg:flex-row lg:items-center lg:justify-between"
-        >
-          <div className="max-w-xs">
-            <div className="flex flex-wrap items-center gap-4">
-              <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-                Not Sure Yet?
-              </h2>
-              <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink">
-                Let&apos;s talk and figure it out together.
-              </span>
-            </div>
-            <p className="mt-4 text-sm leading-relaxed text-white/60">
-              Ideal if you&apos;re unsure what website or marketing service
-              fits your business best.
-            </p>
-          </div>
 
-          <ul className="grid max-w-md flex-1 grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-            {CONSULT_POINTS.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-2.5 text-sm font-semibold text-white"
-              >
-                <Check
-                  aria-hidden="true"
-                  className="mt-0.5 size-4 shrink-0 text-primary"
-                />
-                {point}
-              </li>
-            ))}
-          </ul>
-
-          <a
-            href="#contact"
-            className="inline-flex shrink-0 items-center gap-2.5 rounded-full bg-white px-7 py-4 text-sm font-semibold text-ink transition-colors hover:bg-cream"
-          >
-            <Calendar aria-hidden="true" className="size-4" />
-            Book a Consultation
-          </a>
-        </div>
       </div>
     </section>
   );

@@ -160,7 +160,7 @@ export default function WebDevShowcase() {
               <div className="h-72 overflow-hidden sm:h-80 lg:h-[26rem]">
                 <img
                   src={FEATURED.image}
-                  alt={`${FEATURED.name} website built by Pixcert`}
+                  alt={`${FEATURED.name} website built by ITBIZONE`}
                   loading="eager"
                   className="w-full transition-transform duration-[4000ms] ease-linear group-hover:-translate-y-[calc(100%_-_18rem)] sm:group-hover:-translate-y-[calc(100%_-_20rem)] lg:group-hover:-translate-y-[calc(100%_-_26rem)]"
                 />
@@ -184,7 +184,7 @@ export default function WebDevShowcase() {
                 <div className="h-64 overflow-hidden">
                   <img
                     src={project.image}
-                    alt={`${project.name} website built by Pixcert`}
+                    alt={`${project.name} website built by ITBIZONE`}
                     loading="lazy"
                     className="w-full transition-transform duration-[3500ms] ease-linear group-hover:-translate-y-[calc(100%_-_16rem)]"
                   />

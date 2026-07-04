@@ -72,7 +72,7 @@ export default function CTABanner() {
         </p>
         <div ref={buttonRef} className="mt-8 will-change-transform">
           <Link
-            href="mailto:hello@pixcert.com"
+            href="mailto:info@itbizone.com"
             className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-ink transition-colors hover:bg-cream"
           >
             Get a Free Quote

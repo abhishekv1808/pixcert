@@ -12,7 +12,7 @@ import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Our Services — Pixcert",
+  title: "Our Services — ITBIZONE",
   description:
     "Web development, e-commerce, UI/UX design, social media, AI automation, SEO, web apps, and maintenance — full-service digital solutions from Bangalore.",
   alternates: { canonical: "/services" },

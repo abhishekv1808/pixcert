@@ -49,7 +49,7 @@ const STACKS = [
 const TEAM = [
   {
     src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=160&auto=format&fit=crop",
-    alt: "Pixcert team member portrait",
+    alt: "ITBIZONE team member portrait",
   },
 ];
 

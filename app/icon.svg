@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 359.25 588" width="359.25" height="588">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 340" width="200" height="340">
   <style>
     .mark { fill: #0a0a0a; }
     @media (prefers-color-scheme: dark) { .mark { fill: #ffffff; } }
   </style>
-  <path class="mark" fill-rule="evenodd" d="M 119.511719 586.28125 L 119.511719 448.472656 L 358.453125 310.660156 L 358.453125 172.851562 L 0.0351562 379.566406 L 0.0351562 517.375 Z"/>
-  <path class="mark" fill-rule="evenodd" d="M 119.511719 0.585938 L 358.453125 138.394531 L 358.453125 276.207031 L 311.015625 248.847656 L 119.511719 138.394531 L 119.511719 276.207031 L 0.0351562 345.117188 L 0.0351562 69.492188 Z"/>
-  <circle cx="286.79" cy="515.35" r="71.63" fill="#fc4c00"/>
+  <!-- Lowercase "i" from the ITBIZONE wordmark: orange dot + stem -->
+  <circle cx="100" cy="48" r="48" fill="#fc4c00"/>
+  <rect class="mark" x="55" y="128" width="90" height="212"/>
 </svg>

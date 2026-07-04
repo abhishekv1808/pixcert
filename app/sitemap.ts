@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SERVICE_SLUGS } from "@/lib/service-pages";
 
-const BASE_URL = "https://www.pixcert.in";
+const BASE_URL = "https://www.itbizone.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

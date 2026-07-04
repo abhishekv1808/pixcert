@@ -129,7 +129,7 @@ const CASE_STUDIES: CaseStudy[] = [
     ],
     testimonial: {
       quote:
-        "Pixcert didn't just build us a website — they understood our customers better than we did. The filtering system alone has changed how people shop with us.",
+        "ITBIZONE didn't just build us a website — they understood our customers better than we did. The filtering system alone has changed how people shop with us.",
       name: "Rahul Mehta",
       role: "Founder, Gas & Gear",
     },
@@ -200,7 +200,7 @@ const CASE_STUDIES: CaseStudy[] = [
     ],
     testimonial: {
       quote:
-        "The team at Pixcert understood that fintech isn't just about features — it's about making people feel safe with their money. They nailed it.",
+        "The team at ITBIZONE understood that fintech isn't just about features — it's about making people feel safe with their money. They nailed it.",
       name: "Arjun Kapoor",
       role: "CTO, OpenCredit.Money",
     },

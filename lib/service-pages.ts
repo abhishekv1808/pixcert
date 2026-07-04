@@ -136,7 +136,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "Fast checkout, upsells, and abandoned-cart recovery to lift revenue.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "Stores engineered to perform",
     benefitsIntro:
       "A beautiful store means nothing if it's slow or drops sales at checkout. We obsess over both.",
@@ -171,7 +171,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "68%", label: "Mobile checkout rate" },
       { value: "24/7", label: "Store uptime" },
     ],
-    metaTitle: "E-commerce Development in Bangalore — Pixcert",
+    metaTitle: "E-commerce Development in Bangalore — ITBIZONE",
     metaDescription:
       "Custom Shopify, WooCommerce, and headless e-commerce stores with payments, shipping, and inventory configured. Fast, secure, mobile-first online stores that convert.",
   },
@@ -235,7 +235,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "UX audits and refreshes that modernize dated products.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "Design with intent, not just polish",
     benefitsIntro:
       "Every pixel earns its place. We design around your users and your goals — then make it beautiful.",
@@ -270,7 +270,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "100%", label: "Editable source files" },
       { value: "7 days", label: "Avg. brand kit" },
     ],
-    metaTitle: "UI/UX & Graphic Design Services in Bangalore — Pixcert",
+    metaTitle: "UI/UX & Graphic Design Services in Bangalore — ITBIZONE",
     metaDescription:
       "Brand identity, logo design, website and app UI/UX, design systems, and marketing creatives. Designs that look sharp, feel effortless, and convert.",
   },
@@ -334,7 +334,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "Clear monthly reports on what's working and why.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "Social that ladders up to real goals",
     benefitsIntro:
       "We don't chase vanity metrics. Every post is built to grow an audience that actually buys.",
@@ -369,7 +369,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "3×", label: "Reach increase" },
       { value: "Daily", label: "Posting cadence" },
     ],
-    metaTitle: "Social Media Management in Bangalore — Pixcert",
+    metaTitle: "Social Media Management in Bangalore — ITBIZONE",
     metaDescription:
       "Social media management for Instagram, Facebook, and LinkedIn — content calendars, reels, community management, and paid campaigns that grow your audience.",
   },
@@ -433,7 +433,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "APIs and services stitched together to fit your process.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "Automation that actually holds up",
     benefitsIntro:
       "Anyone can wire a quick flow. We build reliable systems with error handling that you can trust.",
@@ -468,7 +468,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "<1 min", label: "Lead response" },
       { value: "24/7", label: "Uptime" },
     ],
-    metaTitle: "AI & Automation Services in Bangalore — Pixcert",
+    metaTitle: "AI & Automation Services in Bangalore — ITBIZONE",
     metaDescription:
       "AI chatbots, n8n workflow automation, WhatsApp automation, and CRM integrations that capture leads 24/7 and save your team hours every week.",
   },
@@ -532,7 +532,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "Transparent monthly reporting on rankings and ROI.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "Marketing you can actually measure",
     benefitsIntro:
       "We chase the keywords and channels that bring buyers — and prove it with clear, honest reporting.",
@@ -567,7 +567,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "2–3×", label: "Traffic growth" },
       { value: "90+", label: "Avg. page speed" },
     ],
-    metaTitle: "SEO & Digital Marketing in Bangalore — Pixcert",
+    metaTitle: "SEO & Digital Marketing in Bangalore — ITBIZONE",
     metaDescription:
       "On-page and technical SEO, local SEO, content marketing, and Google Ads that get you found by customers already searching — with transparent monthly reporting.",
   },
@@ -631,7 +631,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "Maintainable code your team can keep building on.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "Engineering you won't outgrow",
     benefitsIntro:
       "We write type-safe, tested, documented code — so your product is stable today and easy to extend tomorrow.",
@@ -666,7 +666,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "99.9%", label: "Uptime" },
       { value: "CI/CD", label: "Automated" },
     ],
-    metaTitle: "Web Application Development in Bangalore — Pixcert",
+    metaTitle: "Web Application Development in Bangalore — ITBIZONE",
     metaDescription:
       "Custom web apps, dashboards, customer portals, and SaaS MVPs built with clean, scalable, type-safe code. Secure auth, integrations, and performance by default.",
   },
@@ -730,7 +730,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
           "Design tweaks and content edits whenever you need them.",
       },
     ],
-    benefitsEyebrow: "Why Pixcert",
+    benefitsEyebrow: "Why ITBIZONE",
     benefitsTitle: "A real team on call for your site",
     benefitsIntro:
       "No more chasing freelancers. Get proactive care and same-day help from a team that knows your build.",
@@ -765,7 +765,7 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
       { value: "<2h", label: "Response time" },
       { value: "Weekly", label: "Backups" },
     ],
-    metaTitle: "Website Maintenance & Support in Bangalore — Pixcert",
+    metaTitle: "Website Maintenance & Support in Bangalore — ITBIZONE",
     metaDescription:
       "Monthly website care plans: updates, backups, security monitoring, uptime alerts, performance tuning, and same-day support. Keep your site fast, secure, and online.",
   },

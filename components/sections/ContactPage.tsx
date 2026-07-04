@@ -28,29 +28,29 @@ const CONTACT_INFO = [
   {
     icon: Mail,
     label: "Email Us",
-    value: "hello@pixcert.com",
-    href: "mailto:hello@pixcert.com",
+    value: "info@itbizone.com",
+    href: "mailto:info@itbizone.com",
     description: "We reply within 2–4 hours on business days",
   },
   {
     icon: Phone,
     label: "Call Us",
-    value: "+91 63603 54678",
-    href: "tel:+916360354678",
-    description: "Mon – Fri, 10 AM – 7 PM IST",
+    value: "+91 95351 11129",
+    href: "tel:+919535111129",
+    description: "Mon – Fri, 9 AM – 6 PM IST",
   },
   {
     icon: MapPin,
     label: "Visit Us",
-    value: "Bangalore, Karnataka, India",
-    href: "https://maps.google.com/?q=Bangalore+India",
-    description: "Available for in-person meetings by appointment",
+    value: "T. Dasarahalli, Bengaluru 560057",
+    href: "https://maps.google.com/?q=Narasappa+Road,+Near+Metro+Pillar+471,+T.+Dasarahalli,+Bengaluru+560057",
+    description: "Sy. No 13/1, Site No. 21, 4th Floor, Narasappa Road, Near Metro Pillar 471",
   },
   {
     icon: Clock,
     label: "Working Hours",
-    value: "Mon – Fri: 10 AM – 7 PM",
-    description: "Saturday: 10 AM – 2 PM · Sunday: Closed",
+    value: "Mon – Fri: 9 AM – 6 PM",
+    description: "Saturday & Sunday: Closed",
   },
 ];
 
@@ -197,7 +197,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const body = [
-      `Hi Pixcert,`,
+      `Hi ITBIZONE,`,
       "",
       `Name: ${name || "Not provided"}`,
       `Service: ${service || "Not selected"}`,
@@ -208,8 +208,8 @@ export default function ContactPage() {
       `Message:`,
       message || "(No message)",
     ].join("\n");
-    window.location.href = `mailto:hello@pixcert.com?subject=${encodeURIComponent(
-      "Contact Enquiry — Pixcert",
+    window.location.href = `mailto:info@itbizone.com?subject=${encodeURIComponent(
+      "Contact Enquiry — ITBIZONE",
     )}&body=${encodeURIComponent(body)}`;
   };
 
@@ -267,7 +267,7 @@ export default function ContactPage() {
             {/* Quick action buttons */}
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <a
-                href="mailto:hello@pixcert.com"
+                href="mailto:info@itbizone.com"
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
               >
                 <Mail className="size-4" />
@@ -275,14 +275,14 @@ export default function ContactPage() {
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
               </a>
               <a
-                href="tel:+916360354678"
+                href="tel:+919535111129"
                 className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-primary hover:bg-primary"
               >
                 <Phone className="size-4" />
                 Call Now
               </a>
               <a
-                href="https://wa.me/916360354678"
+                href="https://wa.me/919535111129"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-emerald-500 hover:bg-emerald-600"
@@ -402,18 +402,18 @@ export default function ContactPage() {
 
                   <div className="mt-10 flex flex-col gap-3">
                     <a
-                      href="mailto:hello@pixcert.com"
+                      href="mailto:info@itbizone.com"
                       className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
                     >
                       <Mail className="size-4 text-primary" />
-                      hello@pixcert.com
+                      info@itbizone.com
                     </a>
                     <a
-                      href="tel:+916360354678"
+                      href="tel:+919535111129"
                       className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
                     >
                       <Phone className="size-4 text-primary" />
-                      +91 63603 54678
+                      +91 95351 11129
                     </a>
                   </div>
                 </div>
@@ -593,8 +593,8 @@ export default function ContactPage() {
       <div className="bg-cream px-2.5 pb-2.5 sm:px-3 sm:pb-3">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl">
           <iframe
-            title="Pixcert Location — Bangalore, India"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296514!2d77.49085225!3d12.954517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+            title="ITBIZONE Location — T. Dasarahalli, Bengaluru"
+            src="https://www.google.com/maps?q=Narasappa%20Road%2C%20Near%20Metro%20Pillar%20471%2C%20T.%20Dasarahalli%2C%20Bengaluru%20560057&output=embed"
             width="100%"
             height="400"
             style={{ border: 0 }}

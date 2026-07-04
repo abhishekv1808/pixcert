@@ -14,7 +14,7 @@ import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Website Development in Bangalore — Pixcert",
+  title: "Website Development in Bangalore — ITBIZONE",
   description:
     "Fast, SEO-ready websites built on Next.js, WordPress, and Shopify. Business sites, e-commerce stores, landing pages, and web portals — launched in 2-3 weeks.",
   alternates: { canonical: "/services/web-development" },

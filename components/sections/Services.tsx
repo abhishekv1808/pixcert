@@ -2,38 +2,41 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Bot,
-  Code2,
-  Megaphone,
-  PenTool,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import PillButton from "@/components/ui/PillButton";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const SERVICES = [
   {
-    icon: Code2,
+    number: "01",
     title: "Web Development",
+    href: "/services/web-development",
+    tags: ["Next.js", "E-commerce", "Custom Portals"],
     description:
       "Blazing-fast Next.js websites, e-commerce stores, and custom portals built to scale with your business.",
   },
   {
-    icon: PenTool,
+    number: "02",
     title: "UI/UX & Graphic Design",
+    href: "/services/ui-ux-design",
+    tags: ["Branding", "Logos", "Creatives"],
     description:
       "Branding, logos, and marketing creatives that give your brand a sharp, memorable visual identity.",
   },
   {
-    icon: Megaphone,
+    number: "03",
     title: "Social Media Management",
+    href: "/services/social-media-marketing",
+    tags: ["Content", "Strategy", "Growth"],
     description:
       "Content, strategy, and community growth that turns followers into loyal customers.",
   },
   {
-    icon: Bot,
+    number: "04",
     title: "AI & Automation",
+    href: "/services/ai-automation",
+    tags: ["Chatbots", "n8n Workflows", "Integrations"],
     description:
       "Chatbots, n8n workflows, and smart integrations that save hours and unlock new efficiency.",
   },
@@ -49,7 +52,7 @@ export default function Services() {
       // fromTo (not from): explicit end values survive StrictMode re-mounts
       // and ScrollTrigger refreshes that re-capture state mid-hide.
       gsap.fromTo(
-        "[data-service-card]",
+        "[data-service-row]",
         { y: 48, autoAlpha: 0 },
         {
           y: 0,
@@ -85,35 +88,53 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Service index — numbered editorial rows */}
+        <div className="mt-14 border-y border-white/10">
           {SERVICES.map((service) => (
-            <article
+            <Link
               key={service.title}
-              data-service-card
-              className="group flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-7 transition-all duration-300 hover:-translate-y-2 hover:border-primary/40"
+              href={service.href}
+              data-service-row
+              className="group grid gap-5 border-b border-white/10 py-9 transition-colors duration-300 last:border-b-0 md:grid-cols-[3.5rem_1fr_20rem_3.5rem] md:items-center md:gap-8 lg:py-11"
             >
-              <span className="flex size-13 items-center justify-center rounded-full border border-primary/50 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
-                <service.icon aria-hidden="true" className="size-6" />
+              <span className="font-heading text-sm font-bold text-white/35 transition-colors duration-300 group-hover:text-primary">
+                {service.number}
               </span>
-              <h3 className="mt-6 font-heading text-xl font-bold text-white">
-                {service.title}
-              </h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-white/60">
+
+              <div>
+                <h3 className="font-heading text-2xl font-bold text-white transition-all duration-300 group-hover:translate-x-2 group-hover:text-primary sm:text-4xl">
+                  {service.title}
+                </h3>
+                <p className="mt-3.5 flex flex-wrap gap-2">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/15 px-3 py-1 text-xs font-medium text-white/55 transition-colors duration-300 group-hover:border-white/30 group-hover:text-white/75"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </p>
+              </div>
+
+              <p className="text-sm leading-relaxed text-white/55">
                 {service.description}
               </p>
-              <Link
-                href="#contact"
-                className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-colors group-hover:text-primary"
-                aria-label={`Learn more about ${service.title}`}
+
+              <span
+                aria-hidden="true"
+                className="hidden size-13 items-center justify-center rounded-full border border-white/20 text-white transition-all duration-300 group-hover:border-primary group-hover:bg-primary md:flex"
               >
-                Learn More
-                <ArrowUpRight
-                  aria-hidden="true"
-                  className="size-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
-                />
-              </Link>
-            </article>
+                <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:rotate-45" />
+              </span>
+            </Link>
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <PillButton href="/services" variant="outline">
+            Explore All Services
+          </PillButton>
         </div>
       </div>
     </section>

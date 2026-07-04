@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-/* Wordmark logo. Cropped viewBox ratio ~3.23 (w 1151.8 / h 356.5). */
+/* Wordmark logo. ViewBox ratio ~4.92 (w 1566 / h 318). */
 const SOURCES = {
   // Use on dark backgrounds (navbar, footer)
-  white: "/logo/pixcert-logo-white.svg",
+  white: "/logo/itbizone-logo-white.svg",
   // Use on light / cream backgrounds
-  black: "/logo/pixcert-logo-black.svg",
+  black: "/logo/itbizone-logo-black.svg",
 } as const;
 
 export default function Logo({
@@ -19,8 +19,8 @@ export default function Logo({
   return (
     <Image
       src={SOURCES[variant]}
-      alt="Pixcert"
-      width={323}
+      alt="ITBIZONE"
+      width={492}
       height={100}
       priority
       className={cn("h-7 w-auto", className)}

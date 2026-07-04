@@ -192,7 +192,7 @@ export default function Navbar() {
       >
         <Link
           href="#home"
-          aria-label="Pixcert home"
+          aria-label="ITBIZONE home"
           className="shrink-0 text-white"
         >
           <Logo className="h-8" />
@@ -355,7 +355,7 @@ export default function Navbar() {
             ))}
           </nav>
           <p className="text-sm text-white/50">
-            hello@pixcert.com · Bangalore, India
+            info@itbizone.com · Bangalore, India
           </p>
         </div>
       )}

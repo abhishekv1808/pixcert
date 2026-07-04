@@ -1,14 +1,17 @@
 /**
  * Sitewide JSON-LD structured data (server component).
  * Renders an Organization + LocalBusiness + WebSite graph so search engines
- * and AI answer engines understand who Pixcert is, where it operates, and how
+ * and AI answer engines understand who ITBIZONE is, where it operates, and how
  * to contact it. Rendered once in the root layout.
- *
- * NOTE: `sameAs` social profiles are omitted until real profile URLs exist —
- * asserting placeholder root domains (linkedin.com, etc.) would be incorrect.
- * Add them here once the real Pixcert profiles are live.
  */
-const BASE_URL = "https://www.pixcert.in";
+const BASE_URL = "https://www.itbizone.com";
+
+const SOCIAL_PROFILES = [
+  "https://www.facebook.com/itbizone.tech/",
+  "https://www.instagram.com/itbizone/",
+  "https://www.linkedin.com/company/itbizone-technologies/",
+  "https://x.com/itbizOne",
+];
 
 export default function StructuredData() {
   const graph = {
@@ -17,30 +20,35 @@ export default function StructuredData() {
       {
         "@type": "Organization",
         "@id": `${BASE_URL}/#organization`,
-        name: "Pixcert",
+        name: "ITBIZONE",
         url: BASE_URL,
-        email: "hello@pixcert.com",
+        email: "info@itbizone.com",
+        telephone: "+91-95351-11129",
         description:
           "Bangalore-based digital agency crafting high-performing websites, standout brand design, and digital growth for startups and enterprises.",
         logo: {
           "@type": "ImageObject",
-          url: `${BASE_URL}/logo/pixcert-logo-black.svg`,
+          url: `${BASE_URL}/logo/itbizone-logo-black.svg`,
         },
+        sameAs: SOCIAL_PROFILES,
       },
       {
         "@type": "LocalBusiness",
         "@id": `${BASE_URL}/#localbusiness`,
-        name: "Pixcert",
+        name: "ITBIZONE",
         url: BASE_URL,
         image: `${BASE_URL}/og-image.png`,
-        email: "hello@pixcert.com",
-        telephone: "+91-63603-54678",
+        email: "info@itbizone.com",
+        telephone: "+91-95351-11129",
         priceRange: "$$",
         parentOrganization: { "@id": `${BASE_URL}/#organization` },
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Bangalore",
+          streetAddress:
+            "Sy. No 13/1, Site No. 21, 4th Floor, Narasappa Road, Near Metro Pillar 471, T. Dasarahalli",
+          addressLocality: "Bengaluru",
           addressRegion: "Karnataka",
+          postalCode: "560057",
           addressCountry: "IN",
         },
         areaServed: { "@type": "Country", name: "India" },
@@ -48,22 +56,17 @@ export default function StructuredData() {
           {
             "@type": "OpeningHoursSpecification",
             dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            opens: "10:00",
-            closes: "19:00",
-          },
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: "Saturday",
-            opens: "10:00",
-            closes: "14:00",
+            opens: "09:00",
+            closes: "18:00",
           },
         ],
+        sameAs: SOCIAL_PROFILES,
       },
       {
         "@type": "WebSite",
         "@id": `${BASE_URL}/#website`,
         url: BASE_URL,
-        name: "Pixcert",
+        name: "ITBIZONE",
         publisher: { "@id": `${BASE_URL}/#organization` },
       },
     ],

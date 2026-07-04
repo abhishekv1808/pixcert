@@ -4,9 +4,9 @@ import Footer from "@/components/sections/Footer";
 import LegalPage, { type LegalSection } from "@/components/sections/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Pixcert | Web Development & Digital Services",
+  title: "Terms of Service — ITBIZONE | Web Development & Digital Services",
   description:
-    "Read the Terms of Service governing your use of Pixcert's website and the web development, design, social media, and automation services we provide.",
+    "Read the Terms of Service governing your use of ITBIZONE's website and the web development, design, social media, and automation services we provide.",
   alternates: { canonical: "/terms" },
 };
 
@@ -21,7 +21,7 @@ const SECTIONS: LegalSection[] = [
         <p>
           These Terms of Service (&quot;Terms&quot;) govern your access to and
           use of the website, products, and services provided by{" "}
-          <strong>Pixcert</strong> (&quot;Pixcert&quot;, &quot;we&quot;,
+          <strong>ITBIZONE</strong> (&quot;ITBIZONE&quot;, &quot;we&quot;,
           &quot;us&quot;, or &quot;our&quot;), a digital services agency based
           in Bangalore, India. By accessing our website, requesting a quote, or
           engaging us for any service, you agree to be bound by these Terms.
@@ -41,7 +41,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <p>
-          Pixcert provides digital services including, but not limited to, web
+          ITBIZONE provides digital services including, but not limited to, web
           development, web application development, UI/UX design, e-commerce
           development, social media management, SEO and marketing, AI
           automation, and ongoing maintenance and support.
@@ -62,7 +62,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <p>
-          Quotes and proposals issued by Pixcert are valid for{" "}
+          Quotes and proposals issued by ITBIZONE are valid for{" "}
           <strong>30 days</strong> from the date of issue unless stated
           otherwise. Prices are exclusive of applicable taxes (including GST)
           unless expressly noted.
@@ -161,12 +161,12 @@ const SECTIONS: LegalSection[] = [
         <p>
           Upon receipt of full payment, ownership of the final deliverables
           created specifically for you transfers to you, except for third-party
-          assets, open-source components, and pre-existing Pixcert tools,
+          assets, open-source components, and pre-existing ITBIZONE tools,
           libraries, or frameworks, which remain licensed rather than owned.
         </p>
         <p>
           Until full payment is received, all work product remains the property
-          of Pixcert. We reserve the right to display completed work in our
+          of ITBIZONE. We reserve the right to display completed work in our
           portfolio and marketing materials unless you request otherwise in
           writing.
         </p>
@@ -179,7 +179,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p>
         Projects may rely on third-party platforms, plugins, hosting providers,
-        payment gateways, or APIs. Pixcert is not responsible for outages,
+        payment gateways, or APIs. ITBIZONE is not responsible for outages,
         pricing changes, discontinuation, or policy changes by these third
         parties. Any fees charged by such providers are your responsibility
         unless expressly included in your Project Agreement.
@@ -211,9 +211,9 @@ const SECTIONS: LegalSection[] = [
     heading: "Limitation of Liability",
     body: (
       <p>
-        To the maximum extent permitted by law, Pixcert&apos;s total liability
+        To the maximum extent permitted by law, ITBIZONE&apos;s total liability
         arising out of or relating to any engagement shall not exceed the total
-        fees paid by you for that engagement. In no event shall Pixcert be liable
+        fees paid by you for that engagement. In no event shall ITBIZONE be liable
         for indirect, incidental, special, or consequential damages, including
         loss of profits, data, or business opportunity.
       </p>
@@ -269,8 +269,8 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p>
         Questions about these Terms can be directed to{" "}
-        <a href="mailto:hello@pixcert.com">hello@pixcert.com</a> or via our{" "}
-        <a href="/contact">contact page</a>. Pixcert is based in Bangalore,
+        <a href="mailto:info@itbizone.com">info@itbizone.com</a> or via our{" "}
+        <a href="/contact">contact page</a>. ITBIZONE is based in Bangalore,
         Karnataka, India.
       </p>
     ),
@@ -285,12 +285,12 @@ export default function TermsOfService() {
         <LegalPage
           eyebrow="Legal"
           title="Terms of Service"
-          description="The ground rules for working with Pixcert and using our website. Please read them carefully before engaging our services."
+          description="The ground rules for working with ITBIZONE and using our website. Please read them carefully before engaging our services."
           breadcrumb="Terms of Service"
           lastUpdated={LAST_UPDATED}
           intro={
             <p>
-              These Terms form a binding agreement between you and Pixcert. They
+              These Terms form a binding agreement between you and ITBIZONE. They
               explain what you can expect from us, what we expect from you, and
               how we handle payments, ownership, and responsibilities. By using
               our website or services, you accept these Terms in full.

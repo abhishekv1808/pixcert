@@ -4,9 +4,9 @@ import Footer from "@/components/sections/Footer";
 import LegalPage, { type LegalSection } from "@/components/sections/LegalPage";
 
 export const metadata: Metadata = {
-  title: "Refund Policy — Pixcert | Web Development & Digital Services",
+  title: "Refund Policy — ITBIZONE | Web Development & Digital Services",
   description:
-    "Understand Pixcert's refund and cancellation policy for web development, design, retainer, and subscription services, including eligibility and how to request a refund.",
+    "Understand ITBIZONE's refund and cancellation policy for web development, design, retainer, and subscription services, including eligibility and how to request a refund.",
   alternates: { canonical: "/refund" },
 };
 
@@ -19,7 +19,7 @@ const SECTIONS: LegalSection[] = [
     body: (
       <>
         <p>
-          At <strong>Pixcert</strong>, we want you to be confident in working
+          At <strong>ITBIZONE</strong>, we want you to be confident in working
           with us. This Refund Policy explains when refunds are and are not
           available across our services, and how cancellations are handled. It
           should be read alongside our{" "}
@@ -126,7 +126,7 @@ const SECTIONS: LegalSection[] = [
           outstanding fees are settled.
         </p>
         <p>
-          If Pixcert cancels a project for reasons other than a breach on your
+          If ITBIZONE cancels a project for reasons other than a breach on your
           part, we will refund payments for any work not yet performed.
         </p>
       </>
@@ -141,7 +141,7 @@ const SECTIONS: LegalSection[] = [
         <ul className="ml-5 list-disc space-y-2">
           <li>
             Email us at{" "}
-            <a href="mailto:hello@pixcert.com">hello@pixcert.com</a> with your
+            <a href="mailto:info@itbizone.com">info@itbizone.com</a> with your
             project details and the reason for the request.
           </li>
           <li>Include your invoice or payment reference.</li>
@@ -187,8 +187,8 @@ const SECTIONS: LegalSection[] = [
     body: (
       <p>
         For any questions about refunds or cancellations, contact us at{" "}
-        <a href="mailto:hello@pixcert.com">hello@pixcert.com</a> or through our{" "}
-        <a href="/contact">contact page</a>. Pixcert is based in Bangalore,
+        <a href="mailto:info@itbizone.com">info@itbizone.com</a> or through our{" "}
+        <a href="/contact">contact page</a>. ITBIZONE is based in Bangalore,
         Karnataka, India.
       </p>
     ),

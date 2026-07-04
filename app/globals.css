@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Pixcert design tokens — matched to the Nexto reference */
+  /* ITBIZONE design tokens — matched to the Nexto reference */
   --color-primary: #ff4a17;
   --color-primary-deep: #d93c0c;
   --color-dark: #0a0a0a;
@@ -167,4 +167,18 @@ h5 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Outlined (hollow) marquee lettering */
+.text-outline {
+  -webkit-text-stroke: 1.5px #ffffff;
+  color: transparent;
+}
+.text-outline-faint {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
+  color: transparent;
+}
+.text-outline-ink {
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.45);
+  color: transparent;
 }

@@ -246,11 +246,11 @@ export default function LegalPage({
                 </h2>
                 <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/60">
                   We&apos;re happy to clarify anything. Reach out and a real
-                  human from the Pixcert team will get back to you.
+                  human from the ITBIZONE team will get back to you.
                 </p>
                 <div className="mt-7 flex flex-wrap gap-3">
                   <a
-                    href="mailto:hello@pixcert.com"
+                    href="mailto:info@itbizone.com"
                     className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
                   >
                     <Mail className="size-4" />
@@ -258,14 +258,14 @@ export default function LegalPage({
                     <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
                   </a>
                   <a
-                    href="tel:+916360354678"
+                    href="tel:+919535111129"
                     className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-primary hover:bg-primary"
                   >
                     <Phone className="size-4" />
-                    +91 63603 54678
+                    +91 95351 11129
                   </a>
                   <a
-                    href="https://wa.me/916360354678"
+                    href="https://wa.me/919535111129"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-emerald-500 hover:bg-emerald-600"

@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Pixcert — Web Development, Design & Digital Growth",
-    short_name: "Pixcert",
+    name: "ITBIZONE — Web Development, Design & Digital Growth",
+    short_name: "ITBIZONE",
     description:
       "Bangalore-based digital agency crafting high-performing websites, standout design, and digital growth.",
     start_url: "/",

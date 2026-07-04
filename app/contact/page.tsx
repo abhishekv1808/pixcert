@@ -4,9 +4,9 @@ import ContactPage from "@/components/sections/ContactPage";
 import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Pixcert | Web Development & Digital Services",
+  title: "Contact Us — ITBIZONE | Web Development & Digital Services",
   description:
-    "Get in touch with Pixcert for web development, UI/UX design, social media management, and AI automation services in Bangalore. Request a free quote today.",
+    "Get in touch with ITBIZONE for web development, UI/UX design, social media management, and AI automation services in Bangalore. Request a free quote today.",
   alternates: { canonical: "/contact" },
 };
 
