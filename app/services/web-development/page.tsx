@@ -12,6 +12,7 @@ import FAQ from "@/components/sections/FAQ";
 import QuoteForm from "@/components/sections/QuoteForm";
 import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
+import FloatingCTA from "@/components/ui/FloatingCTA";
 
 export const metadata: Metadata = {
   title: "Website Development in Bangalore — ITBIZONE",
@@ -39,6 +40,7 @@ export default function WebDevelopmentPage() {
         <CTABanner />
       </main>
       <Footer />
+      <FloatingCTA />
     </>
   );
 }

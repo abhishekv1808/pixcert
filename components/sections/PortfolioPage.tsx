@@ -19,6 +19,7 @@ import {
   Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { motion } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
@@ -339,7 +340,19 @@ function CaseStudySection({
   const isEven = index % 2 === 0;
 
   return (
-    <div ref={sectionRef}>
+    <div ref={sectionRef} id={study.slug} className="scroll-mt-28">
+      {/* ---- Case index label ---- */}
+      <div data-story-block className="mb-6 flex items-center gap-4">
+        <span className="font-heading text-sm font-bold text-primary">
+          Case Study {String(index + 1).padStart(2, "0")}
+          <span className="text-ink/30"> / {String(CASE_STUDIES.length).padStart(2, "0")}</span>
+        </span>
+        <span aria-hidden="true" className="h-px flex-1 bg-ink/10" />
+        <span className="text-xs font-medium uppercase tracking-[0.14em] text-body">
+          {study.duration} build
+        </span>
+      </div>
+
       {/* ---- Project Hero Banner ---- */}
       <div
         data-story-block
@@ -383,51 +396,28 @@ function CaseStudySection({
       </div>
 
       {/* ---- The Story: Challenge → Approach → Solution ---- */}
-      <div className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-3 lg:gap-12">
-        {/* Challenge */}
-        <div data-story-block>
-          <div className="flex items-center gap-3">
-            <span className="flex size-8 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-              <span className="text-sm font-bold">01</span>
+      <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-3 lg:gap-12">
+        {[
+          { step: "01", title: "The Challenge", copy: study.challenge },
+          { step: "02", title: "Our Approach", copy: study.approach },
+          { step: "03", title: "The Solution", copy: study.solution },
+        ].map((block) => (
+          <div
+            key={block.step}
+            data-story-block
+            className="border-t-2 border-ink/10 pt-6"
+          >
+            <span className="font-heading text-sm font-bold text-primary">
+              {block.step}
             </span>
-            <h3 className="font-heading text-lg font-bold text-ink">
-              The Challenge
+            <h3 className="mt-2 font-heading text-xl font-bold text-ink">
+              {block.title}
             </h3>
+            <p className="mt-3.5 text-sm leading-relaxed text-body">
+              {block.copy}
+            </p>
           </div>
-          <p className="mt-4 text-sm leading-relaxed text-body">
-            {study.challenge}
-          </p>
-        </div>
-
-        {/* Approach */}
-        <div data-story-block>
-          <div className="flex items-center gap-3">
-            <span className="flex size-8 items-center justify-center rounded-full bg-amber-500/10 text-amber-600">
-              <span className="text-sm font-bold">02</span>
-            </span>
-            <h3 className="font-heading text-lg font-bold text-ink">
-              Our Approach
-            </h3>
-          </div>
-          <p className="mt-4 text-sm leading-relaxed text-body">
-            {study.approach}
-          </p>
-        </div>
-
-        {/* Solution */}
-        <div data-story-block>
-          <div className="flex items-center gap-3">
-            <span className="flex size-8 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
-              <span className="text-sm font-bold">03</span>
-            </span>
-            <h3 className="font-heading text-lg font-bold text-ink">
-              The Solution
-            </h3>
-          </div>
-          <p className="mt-4 text-sm leading-relaxed text-body">
-            {study.solution}
-          </p>
-        </div>
+        ))}
       </div>
 
       {/* ---- Key Metrics ---- */}
@@ -438,9 +428,11 @@ function CaseStudySection({
         {study.highlights.map((stat) => (
           <div
             key={stat.label}
-            className="group rounded-2xl border border-ink/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            className="group rounded-2xl border border-ink/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-ink/5"
           >
-            <stat.icon className="size-5 text-primary" />
+            <span className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+              <stat.icon className="size-4" />
+            </span>
             <p className="mt-4 font-heading text-2xl font-bold text-ink sm:text-3xl">
               {stat.value}
             </p>
@@ -627,21 +619,117 @@ export default function PortfolioPage() {
             </p>
 
             {/* Quick stats */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
               {[
-                { value: "50+", label: "Projects Shipped" },
-                { value: "95%", label: "Client Satisfaction" },
-                { value: "2–3", label: "Weeks to Launch" },
+                { value: "50", suffix: "+", label: "Projects Shipped" },
+                { value: "95", suffix: "%", label: "Client Satisfaction" },
+                { value: "2–3", suffix: "wks", label: "To Launch" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="font-heading text-2xl font-bold text-white">
+                  <p className="font-heading text-3xl font-bold text-white sm:text-4xl">
                     {stat.value}
+                    <span className="text-primary">{stat.suffix}</span>
                   </p>
-                  <p className="mt-1 text-xs text-white/50">{stat.label}</p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.14em] text-white/50">
+                    {stat.label}
+                  </p>
                 </div>
               ))}
             </div>
+
+            {/* Fanned case-study deck — click a card to jump to its story */}
+            <div className="mt-14 flex items-end justify-center">
+              {CASE_STUDIES.map((study, i) => (
+                <motion.div
+                  key={study.slug}
+                  initial={{ opacity: 0, y: 40, rotate: 0 }}
+                  animate={{ opacity: 1, y: 0, rotate: (i - 1) * 7 }}
+                  transition={{
+                    delay: 0.9 + i * 0.15,
+                    type: "spring",
+                    stiffness: 120,
+                    damping: 16,
+                  }}
+                  whileHover={{ y: -14, rotate: 0, scale: 1.06, zIndex: 10 }}
+                  className={`relative ${i !== 0 ? "-ml-10 sm:-ml-14" : ""}`}
+                  style={{ zIndex: i === 1 ? 2 : 1 }}
+                >
+                  <Link
+                    href={`#${study.slug}`}
+                    aria-label={`Jump to the ${study.client} case study`}
+                    className="block overflow-hidden rounded-2xl border-4 border-white/90 shadow-2xl shadow-black/40"
+                  >
+                    <span className="relative block h-32 w-44 sm:h-40 sm:w-60">
+                      <Image
+                        src={study.heroImage}
+                        alt=""
+                        aria-hidden="true"
+                        fill
+                        sizes="240px"
+                        className="object-cover"
+                      />
+                      <span className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                      <span className="absolute bottom-2.5 left-3 right-3 truncate text-left text-xs font-bold text-white">
+                        {study.client}
+                      </span>
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* ============================================================ */}
+      {/*  Case study index                                             */}
+      {/* ============================================================ */}
+      <div className="bg-cream pt-20 lg:pt-28">
+        <div className="mx-auto max-w-6xl px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ staggerChildren: 0.1 }}
+            className="border-y border-ink/10"
+          >
+            {CASE_STUDIES.map((study, i) => (
+              <motion.div
+                key={study.slug}
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Link
+                  href={`#${study.slug}`}
+                  className="group grid items-center gap-2 border-b border-ink/10 py-6 last:border-b-0 sm:grid-cols-[3rem_1fr_auto_2.5rem] sm:gap-6"
+                >
+                  <span className="font-heading text-sm font-bold text-ink/30 transition-colors duration-300 group-hover:text-primary">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <span className="block font-heading text-xl font-bold text-ink transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-primary sm:text-2xl">
+                      {study.client}
+                    </span>
+                    <span className="mt-0.5 block text-sm text-body">
+                      {study.tagline}
+                    </span>
+                  </span>
+                  <span className="hidden text-xs font-medium uppercase tracking-[0.12em] text-body sm:block">
+                    {study.category} · {study.year}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="hidden size-10 items-center justify-center rounded-full border border-ink/15 text-ink transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-white sm:flex"
+                  >
+                    <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
@@ -657,7 +745,11 @@ export default function PortfolioPage() {
 
         {/* Final CTA */}
         <div className="mx-auto mt-28 max-w-6xl px-6 lg:mt-40">
-          <div className="flex flex-col items-center rounded-3xl bg-dark p-12 text-center sm:p-16">
+          <div className="relative flex flex-col items-center overflow-hidden rounded-3xl bg-dark p-12 text-center sm:p-16">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-primary/20 blur-3xl"
+            />
             <div
               aria-hidden="true"
               className="grain-overlay absolute inset-0 rounded-3xl"

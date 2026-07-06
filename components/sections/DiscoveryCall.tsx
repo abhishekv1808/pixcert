@@ -5,7 +5,7 @@ import { CalendarCheck } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
-const CALENDLY_URL = "https://calendly.com/abhishek-v1808";
+const CALENDLY_URL = "https://calendly.com/abhishek-v1808/30min";
 
 export default function DiscoveryCall() {
   const sectionRef = useRef<HTMLElement>(null);

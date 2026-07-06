@@ -238,7 +238,7 @@ export default function Pricing() {
             href="#discovery-call"
             className="font-semibold text-primary underline-offset-4 hover:underline"
           >
-            Book a free 15-minute call
+            Book a free 30-minute call
           </Link>{" "}
           and we&apos;ll point you the right way.
         </p>

@@ -6,17 +6,16 @@ import {
   ArrowUpRight,
   Calendar,
   Check,
-  ChevronDown,
   ChevronRight,
   Clock,
   Coffee,
-  FileText,
   Mail,
   MapPin,
   MessageCircle,
   Phone,
   Send,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
@@ -77,15 +76,15 @@ const BUDGET_RANGES = [
 const CONSULT_POINTS = [
   "No commitments required",
   "Personalized guidance for your project",
-  "15-minute clarity call",
+  "30-minute clarity call",
   "Ask anything before you decide",
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Select field                                                       */
+/*  Chip selector — one tap instead of opening a dropdown              */
 /* ------------------------------------------------------------------ */
 
-function SelectField({
+function ChipGroup({
   label,
   options,
   value,
@@ -97,29 +96,31 @@ function SelectField({
   onChange: (v: string) => void;
 }) {
   return (
-    <label className="block">
-      <span className="text-sm font-semibold text-ink">{label}</span>
-      <span className="relative mt-2 block">
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full appearance-none rounded-xl border border-ink/15 bg-white px-4 py-3.5 text-sm text-ink outline-none transition-colors focus:border-primary"
-        >
-          <option value="" disabled>
-            Select...
-          </option>
-          {options.map((opt) => (
-            <option key={opt} value={opt}>
+    <fieldset>
+      <legend className="text-sm font-semibold text-ink">{label}</legend>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {options.map((opt) => {
+          const active = value === opt;
+          return (
+            <motion.button
+              key={opt}
+              type="button"
+              whileTap={{ scale: 0.94 }}
+              onClick={() => onChange(active ? "" : opt)}
+              aria-pressed={active}
+              className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold transition-colors duration-200 ${
+                active
+                  ? "border-primary bg-primary text-white"
+                  : "border-ink/15 bg-white text-ink/70 hover:border-primary/50 hover:text-ink"
+              }`}
+            >
+              {active && <Check aria-hidden="true" className="size-3" />}
               {opt}
-            </option>
-          ))}
-        </select>
-        <ChevronDown
-          aria-hidden="true"
-          className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-ink/40"
-        />
-      </span>
-    </label>
+            </motion.button>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 }
 
@@ -227,9 +228,17 @@ export default function ContactPage() {
           />
           <div aria-hidden="true" className="grain-overlay absolute inset-0" />
 
+          {/* Giant hollow watermark clipped at the bottom edge */}
+          <span
+            aria-hidden="true"
+            className="text-outline-faint pointer-events-none absolute inset-x-0 -bottom-[0.34em] block select-none whitespace-nowrap text-center font-heading text-[7rem] font-bold uppercase leading-none tracking-tight sm:text-[11rem]"
+          >
+            Say Hello
+          </span>
+
           <div
             data-contact-hero
-            className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 pb-20 pt-32 text-center sm:pt-40"
+            className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 pb-28 pt-32 text-center sm:pb-32 sm:pt-40"
           >
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb">
@@ -366,56 +375,62 @@ export default function ContactPage() {
               />
 
               <div className="relative z-10 flex flex-1 flex-col">
-                <span aria-hidden="true" className="size-4 rounded-full bg-primary" />
+                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/80 shadow-sm">
+                  <span
+                    aria-hidden="true"
+                    className="size-2 rounded-full bg-emerald-500"
+                  />
+                  2 Spots Left This Month
+                </span>
 
-                <div className="mt-auto pt-16">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/80 shadow-sm">
-                    <span
-                      aria-hidden="true"
-                      className="size-2 rounded-full bg-emerald-500"
-                    />
-                    2 Spots Left This Month
-                  </span>
+                <h2 className="mt-5 font-heading text-2xl font-bold leading-tight text-white sm:text-4xl">
+                  Let&apos;s discuss your project
+                </h2>
 
-                  <h2 className="mt-5 font-heading text-2xl font-bold leading-tight text-white sm:text-4xl">
-                    Let&apos;s discuss your project
-                  </h2>
+                <p className="mt-4 text-sm leading-relaxed text-white/60">
+                  Tell us about your goals and we&apos;ll send you a custom
+                  proposal within 24 hours — no strings attached.
+                </p>
 
-                  <p className="mt-4 text-sm leading-relaxed text-white/60">
-                    Tell us about your goals and we&apos;ll send you a custom
-                    proposal within 24 hours — no strings attached.
-                  </p>
-
-                  <ul className="mt-8 space-y-3.5">
-                    {CONSULT_POINTS.map((point) => (
-                      <li
-                        key={point}
-                        className="flex items-start gap-2.5 text-sm font-medium text-white/85"
-                      >
-                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary">
-                          <Check className="size-3 text-white" />
-                        </span>
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-10 flex flex-col gap-3">
-                    <a
-                      href="mailto:info@itbizone.com"
-                      className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
+                <ul className="mt-8 space-y-3.5">
+                  {CONSULT_POINTS.map((point) => (
+                    <li
+                      key={point}
+                      className="flex items-start gap-2.5 text-sm font-medium text-white/85"
                     >
-                      <Mail className="size-4 text-primary" />
-                      info@itbizone.com
-                    </a>
-                    <a
-                      href="tel:+919535111129"
-                      className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
-                    >
-                      <Phone className="size-4 text-primary" />
-                      +91 95351 11129
-                    </a>
-                  </div>
+                      <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary">
+                        <Check className="size-3 text-white" />
+                      </span>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+
+                <figure className="mt-9 rounded-2xl border border-white/10 bg-white/[0.05] p-5">
+                  <blockquote className="text-sm leading-relaxed text-white/75">
+                    &ldquo;ITBIZONE didn&apos;t just build us a website — they
+                    understood our customers better than we did.&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-3 text-xs font-semibold text-white/45">
+                    Rahul Mehta — Founder, Gas &amp; Gear
+                  </figcaption>
+                </figure>
+
+                <div className="mt-auto flex flex-col gap-3 pt-9">
+                  <a
+                    href="mailto:info@itbizone.com"
+                    className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
+                  >
+                    <Mail className="size-4 text-primary" />
+                    info@itbizone.com
+                  </a>
+                  <a
+                    href="tel:+919535111129"
+                    className="flex items-center gap-2.5 rounded-lg bg-white/[0.08] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/[0.14]"
+                  >
+                    <Phone className="size-4 text-primary" />
+                    +91 95351 11129
+                  </a>
                 </div>
               </div>
             </div>
@@ -485,15 +500,15 @@ export default function ContactPage() {
                   </span>
                 </label>
 
-                {/* Selects */}
-                <SelectField
+                {/* Chip selectors */}
+                <ChipGroup
                   label="What service are you interested in?"
                   options={WEBSITE_TYPES}
                   value={service}
                   onChange={setService}
                 />
 
-                <SelectField
+                <ChipGroup
                   label="What's your estimated budget?"
                   options={BUDGET_RANGES}
                   value={budget}
@@ -542,47 +557,96 @@ export default function ContactPage() {
           {/* Book a consultation banner */}
           <div
             data-contact-form-block
-            className="mt-5 flex flex-col gap-9 rounded-3xl bg-dark p-9 sm:p-11 lg:flex-row lg:items-center lg:justify-between"
+            className="relative mt-5 overflow-hidden rounded-3xl bg-dark p-9 sm:p-12"
           >
-            <div className="max-w-sm">
-              <div className="flex flex-wrap items-center gap-4">
-                <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-                  Prefer a Call?
-                </h2>
-                <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink">
-                  Book a free 15-min call
+            {/* Atmosphere */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-28 -top-28 size-96 rounded-full bg-primary/20 blur-3xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-32 -left-24 size-80 rounded-full bg-primary/10 blur-3xl"
+            />
+            <div aria-hidden="true" className="grain-overlay absolute inset-0" />
+
+            <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr_auto] lg:items-center lg:gap-12">
+              {/* Copy */}
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/80">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+                  </span>
+                  Free 30-min discovery call
                 </span>
+                <h2 className="mt-5 font-heading text-2xl font-bold leading-tight text-white sm:text-4xl">
+                  Prefer a call over forms?
+                </h2>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/60">
+                  Sometimes a quick conversation is all it takes. Schedule a
+                  call at a time that works for you — no pitch, just clarity.
+                </p>
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-white/60">
-                Sometimes a quick conversation is all it takes. Schedule a call
-                at a time that works for you — no pitch, just clarity.
-              </p>
-            </div>
 
-            <ul className="grid max-w-md flex-1 grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-              {CONSULT_POINTS.map((point) => (
-                <li
-                  key={point}
-                  className="flex items-start gap-2.5 text-sm font-semibold text-white"
+              {/* Checklist */}
+              <ul className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                {CONSULT_POINTS.map((point) => (
+                  <li
+                    key={point}
+                    className="flex items-start gap-2.5 text-sm font-semibold text-white"
+                  >
+                    <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary">
+                      <Check aria-hidden="true" className="size-3 text-white" />
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Booking mini-card */}
+              <motion.div
+                initial={{ opacity: 0, y: 24, rotate: 2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 140, damping: 18 }}
+                whileHover={{ y: -6 }}
+                className="w-full max-w-xs rounded-2xl bg-white p-6 shadow-2xl shadow-black/30 lg:w-72"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Calendar aria-hidden="true" className="size-5" />
+                  </span>
+                  <div>
+                    <p className="font-heading text-base font-bold text-ink">
+                      30-Minute Clarity Call
+                    </p>
+                    <p className="text-xs text-body">
+                      Free · Google Meet or phone
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center gap-2 border-t border-ink/[0.07] pt-4 text-xs text-body">
+                  <Clock aria-hidden="true" className="size-3.5 text-primary" />
+                  Slots usually available within 48 hours
+                </div>
+
+                <motion.a
+                  whileTap={{ scale: 0.97 }}
+                  href="https://calendly.com/abhishek-v1808/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
                 >
-                  <Check
+                  Pick a Time
+                  <ArrowUpRight
                     aria-hidden="true"
-                    className="mt-0.5 size-4 shrink-0 text-primary"
+                    className="size-4 transition-transform duration-300 group-hover:rotate-45"
                   />
-                  {point}
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href="https://calendly.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-2.5 rounded-full bg-white px-7 py-4 text-sm font-semibold text-ink transition-colors hover:bg-cream"
-            >
-              <Calendar aria-hidden="true" className="size-4" />
-              Book a Consultation
-            </a>
+                </motion.a>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -591,18 +655,50 @@ export default function ContactPage() {
       {/*  Map embed                                                    */}
       {/* ============================================================ */}
       <div className="bg-cream px-2.5 pb-2.5 sm:px-3 sm:pb-3">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl">
           <iframe
             title="ITBIZONE Location — T. Dasarahalli, Bengaluru"
             src="https://www.google.com/maps?q=Narasappa%20Road%2C%20Near%20Metro%20Pillar%20471%2C%20T.%20Dasarahalli%2C%20Bengaluru%20560057&output=embed"
             width="100%"
-            height="400"
+            height="440"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="block"
           />
+
+          {/* Floating office card */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute bottom-5 left-5 max-w-[calc(100%-2.5rem)] rounded-2xl border border-ink/[0.06] bg-white p-5 shadow-2xl shadow-ink/15 sm:bottom-7 sm:left-7 sm:max-w-xs"
+          >
+            <p className="flex items-center gap-2 font-heading text-base font-bold text-ink">
+              <span className="flex size-7 items-center justify-center rounded-full bg-primary text-white">
+                <MapPin aria-hidden="true" className="size-3.5" />
+              </span>
+              ITBIZONE — Bengaluru
+            </p>
+            <p className="mt-2.5 text-xs leading-relaxed text-body">
+              Sy. No 13/1, Site No. 21, 4th Floor, Narasappa Road, Near Metro
+              Pillar 471, T. Dasarahalli, Bengaluru 560057
+            </p>
+            <a
+              href="https://maps.google.com/?q=Narasappa+Road,+Near+Metro+Pillar+471,+T.+Dasarahalli,+Bengaluru+560057"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-3.5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary"
+            >
+              Get Directions
+              <ArrowUpRight
+                aria-hidden="true"
+                className="size-3.5 transition-transform duration-300 group-hover:rotate-45"
+              />
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>

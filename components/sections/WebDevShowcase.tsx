@@ -125,7 +125,7 @@ export default function WebDevShowcase() {
 
         {/* Featured project — full width browser window */}
         <a
-          href="#contact"
+          href="#quote"
           data-showcase-item
           aria-label={`${FEATURED.name} — ${FEATURED.category}`}
           className="group mt-14 block overflow-hidden rounded-2xl border border-ink/10 bg-dark shadow-sm transition-shadow duration-300 hover:shadow-xl"
@@ -174,7 +174,7 @@ export default function WebDevShowcase() {
           {PROJECTS.map((project) => (
             <a
               key={project.name}
-              href="#contact"
+              href="#quote"
               data-showcase-item
               aria-label={`${project.name} — ${project.category}`}
               className="group overflow-hidden rounded-2xl border border-ink/10 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg"
@@ -217,7 +217,7 @@ export default function WebDevShowcase() {
         </div>
 
         <div className="mt-14 flex justify-center">
-          <PillButton href="#contact" size="lg">
+          <PillButton href="#quote" size="lg">
             Start Your Project
           </PillButton>
         </div>

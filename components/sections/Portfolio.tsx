@@ -2,52 +2,74 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
+/* Asymmetric editorial grid: wide/narrow cards alternate per row.
+   Projects with a written case study deep-link to it on /portfolio. */
 const PROJECTS = [
   {
     name: "Gas & Gear",
     category: "Automotive E-commerce",
+    year: "2025",
+    href: "/portfolio#gas-and-gear",
     image:
       "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200&auto=format&fit=crop",
     alt: "Classic car engine bay representing the Gas & Gear automotive store",
+    wide: true,
   },
   {
     name: "OpenCredit.Money",
     category: "Fintech Platform",
+    year: "2025",
+    href: "/portfolio#opencredit-money",
     image:
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
     alt: "Payment card and laptop representing the OpenCredit fintech platform",
+    wide: false,
   },
   {
     name: "EdgeGrip Tyres",
     category: "E-commerce & Branding",
+    year: "2024",
+    href: "/portfolio",
     image:
       "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop",
     alt: "Car on a mountain road representing EdgeGrip Tyres",
+    wide: false,
   },
   {
     name: "Right Asset Management",
     category: "Real Estate Web Platform",
+    year: "2024",
+    href: "/portfolio#right-asset-management",
     image:
       "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop",
     alt: "Modern building facade representing Right Asset Management",
+    wide: true,
   },
   {
     name: "Krushiyuga Farm",
     category: "Agritech Brand & Website",
+    year: "2024",
+    href: "/portfolio",
     image:
       "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=1200&auto=format&fit=crop",
     alt: "Golden farm field at sunset representing Krushiyuga Farm",
+    wide: true,
   },
   {
     name: "Nithyam Organics",
     category: "D2C Organic Store",
+    year: "2023",
+    href: "/portfolio",
     image:
       "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop",
     alt: "Fresh organic produce display representing Nithyam Organics",
+    wide: false,
   },
 ];
 
@@ -94,18 +116,23 @@ export default function Portfolio() {
           <PillButton href="#contact">Start Your Project</PillButton>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-x-6 gap-y-12 md:grid-cols-12">
           {PROJECTS.map((project, i) => (
-            <a
+            <Link
               key={project.name}
-              href="#contact"
+              href={project.href}
               data-project
               aria-label={`${project.name} — ${project.category}`}
-              className={`group relative block overflow-hidden rounded-2xl ${
-                i % 2 === 1 ? "md:translate-y-10" : ""
+              className={`group block ${
+                project.wide ? "md:col-span-7" : "md:col-span-5"
               }`}
             >
-              <div className="relative aspect-[4/3]">
+              {/* Image */}
+              <div
+                className={`relative overflow-hidden rounded-3xl ${
+                  project.wide ? "aspect-[16/10]" : "aspect-[4/3.2]"
+                }`}
+              >
                 <Image
                   src={project.image}
                   alt={project.alt}
@@ -113,20 +140,37 @@ export default function Portfolio() {
                   sizes="(min-width: 768px) 50vw, 100vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+                {/* Year tab */}
+                <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur-sm">
+                  {project.year}
+                </span>
+                {/* View chip slides in on hover (desktop) */}
+                <span className="absolute bottom-5 right-5 flex translate-y-3 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  View Project
+                  <ArrowUpRight aria-hidden="true" className="size-3.5" />
+                </span>
               </div>
-              {/* Hover overlay slides up with name + category */}
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/30 to-transparent p-7 opacity-100 transition-opacity duration-500 md:opacity-0 md:group-hover:opacity-100">
-                <div className="translate-y-0 transition-transform duration-500 md:translate-y-6 md:group-hover:translate-y-0">
-                  <span className="inline-block rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">
-                    {project.category}
-                  </span>
-                  <h3 className="mt-3 font-heading text-2xl font-bold text-white">
+
+              {/* Caption — always visible, editorial style */}
+              <div className="mt-5 flex items-start justify-between gap-4 border-t border-ink/10 pt-4">
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-ink transition-colors duration-300 group-hover:text-primary sm:text-2xl">
                     {project.name}
                   </h3>
+                  <p className="mt-1 text-sm text-body">{project.category}</p>
                 </div>
+                <span className="mt-1 font-heading text-sm font-bold text-ink/30 transition-colors duration-300 group-hover:text-primary">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
               </div>
-            </a>
+            </Link>
           ))}
+        </div>
+
+        <div className="mt-16 flex justify-center">
+          <PillButton href="/portfolio" variant="primary" size="lg">
+            View All Case Studies
+          </PillButton>
         </div>
       </div>
     </section>
