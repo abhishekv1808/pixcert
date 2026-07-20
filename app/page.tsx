@@ -7,13 +7,11 @@ import CoreFeatures from "@/components/sections/CoreFeatures";
 import Portfolio from "@/components/sections/Portfolio";
 import Process from "@/components/sections/Process";
 import TechStack from "@/components/sections/TechStack";
-import Pricing from "@/components/sections/Pricing";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import Blog from "@/components/sections/Blog";
 import QuoteForm from "@/components/sections/QuoteForm";
 import DiscoveryCall from "@/components/sections/DiscoveryCall";
-import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
 import type { Metadata } from "next";
 
@@ -35,7 +33,6 @@ export default function Home() {
         <Services />
         <Portfolio />
         <CoreFeatures />
-        <Pricing />
         <Process />
         <Testimonials />
         <TechStack />
@@ -43,7 +40,6 @@ export default function Home() {
         <FAQ />
         <QuoteForm />
         <DiscoveryCall />
-        <CTABanner />
       </main>
       <Footer />
     </>

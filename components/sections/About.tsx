@@ -29,6 +29,15 @@ const STATS = [
   { value: 24, suffix: "h", label: "Average response time" },
 ];
 
+/* Each word in its own span so scroll can fill them in sequence */
+function words(text: string) {
+  return text.split(" ").map((word, i) => (
+    <span key={`${word}-${i}`} data-fill-word>
+      {word}{" "}
+    </span>
+  ));
+}
+
 function HeadlineChip({ src, alt }: { src: string; alt: string }) {
   return (
     <span
@@ -60,6 +69,23 @@ export default function About() {
             trigger: sectionRef.current,
             start: "top 72%",
             once: true,
+          },
+        },
+      );
+
+      // Headline words fill from faint to full ink as the reader scrolls
+      gsap.fromTo(
+        "[data-fill-word]",
+        { autoAlpha: 0.16 },
+        {
+          autoAlpha: 1,
+          ease: "none",
+          stagger: 0.35,
+          scrollTrigger: {
+            trigger: "[data-about-headline]",
+            start: "top 80%",
+            end: "top 30%",
+            scrub: true,
           },
         },
       );
@@ -118,16 +144,18 @@ export default function About() {
           </p>
         </div>
 
-        {/* Statement headline with inline photo chips */}
+        {/* Statement headline with inline photo chips; words fill with
+            color as the reader scrolls through the section */}
         <h2
           data-about-reveal
+          data-about-headline
           className="mt-10 max-w-5xl font-heading text-4xl font-bold leading-[1.12] tracking-tight text-ink sm:text-6xl sm:leading-[1.08]"
         >
-          We&apos;re a passionate{" "}
-          <span className="text-primary">digital team</span>
-          <HeadlineChip {...CHIPS[0]} /> crafting websites, brands
-          <HeadlineChip {...CHIPS[1]} /> &amp; growth
-          <HeadlineChip {...CHIPS[2]} /> for ambitious businesses.
+          {words("We're a passionate")}
+          <span className="text-primary">{words("digital team")}</span>
+          <HeadlineChip {...CHIPS[0]} /> {words("crafting websites, brands")}
+          <HeadlineChip {...CHIPS[1]} /> {words("& growth")}
+          <HeadlineChip {...CHIPS[2]} /> {words("for ambitious businesses.")}
         </h2>
 
         {/* Count-up stats strip */}
@@ -202,7 +230,7 @@ export default function About() {
 
           <a
             data-about-reveal
-            href="#contact"
+            href="/about"
             className="group relative min-h-[320px] overflow-hidden rounded-3xl sm:col-span-2 lg:col-span-1"
           >
             <Image

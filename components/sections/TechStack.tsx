@@ -170,7 +170,7 @@ export default function TechStack() {
             <p className="text-sm font-medium text-white">
               Let&apos;s make something great work together.{" "}
               <Link
-                href="#contact"
+                href="#quote"
                 className="font-semibold text-primary underline underline-offset-4 hover:text-white"
               >
                 Get Free Quote

@@ -4,7 +4,7 @@ import WebDevHero from "@/components/sections/WebDevHero";
 import WebDevTypes from "@/components/sections/WebDevTypes";
 import WebDevShowcase from "@/components/sections/WebDevShowcase";
 import WebDevSpotlight from "@/components/sections/WebDevSpotlight";
-import Process from "@/components/sections/Process";
+import WebDevProcess from "@/components/sections/WebDevProcess";
 import Pricing from "@/components/sections/Pricing";
 import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
@@ -32,7 +32,7 @@ export default function WebDevelopmentPage() {
         <WebDevShowcase />
         <WebDevSpotlight />
         <Pricing />
-        <Process />
+        <WebDevProcess />
         <Testimonials />
         <TechStack />
         <QuoteForm />

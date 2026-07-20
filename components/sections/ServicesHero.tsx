@@ -68,7 +68,7 @@ export default function ServicesHero() {
             development, marketing, and automation under one roof in Bangalore.
           </p>
 
-          <PillButton href="#contact" size="lg" className="mt-9">
+          <PillButton href="#quote" size="lg" className="mt-9">
             Get a Free Quote
           </PillButton>
         </div>

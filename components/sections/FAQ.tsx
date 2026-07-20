@@ -81,7 +81,7 @@ export default function FAQ() {
             Everything clients usually ask before starting a project. Still
             curious about something? We reply within a day.
           </p>
-          <PillButton href="#contact" className="mt-8">
+          <PillButton href="#quote" className="mt-8">
             Ask Us Anything
           </PillButton>
         </div>

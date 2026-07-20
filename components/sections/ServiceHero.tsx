@@ -105,7 +105,7 @@ export default function ServiceHero({ slug }: { slug: string }) {
 
           {/* CTAs */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <PillButton href="#contact" size="lg">
+            <PillButton href="#quote" size="lg">
               Get a Free Quote
             </PillButton>
             <PillButton href="/portfolio" variant="outline" size="lg">

@@ -19,7 +19,8 @@ export default function FloatingCTA() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const targets = ["#quote", "#contact"]
+    // Also hide over the pinned spotlight stage — it has its own CTA
+    const targets = ["#quote", "#contact", "#spotlight"]
       .map((sel) => document.querySelector(sel))
       .filter((el): el is Element => el !== null);
     const observer = new IntersectionObserver(

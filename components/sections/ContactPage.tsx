@@ -408,11 +408,11 @@ export default function ContactPage() {
 
                 <figure className="mt-9 rounded-2xl border border-white/10 bg-white/[0.05] p-5">
                   <blockquote className="text-sm leading-relaxed text-white/75">
-                    &ldquo;ITBIZONE didn&apos;t just build us a website — they
-                    understood our customers better than we did.&rdquo;
+                    &ldquo;Our website now does the job of three sales reps —
+                    the quality of inquiries has completely changed.&rdquo;
                   </blockquote>
                   <figcaption className="mt-3 text-xs font-semibold text-white/45">
-                    Rahul Mehta — Founder, Gas &amp; Gear
+                    Suresh Reddy — MD, Right Asset Management
                   </figcaption>
                 </figure>
 

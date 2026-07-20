@@ -12,16 +12,6 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
    Projects with a written case study deep-link to it on /portfolio. */
 const PROJECTS = [
   {
-    name: "Gas & Gear",
-    category: "Automotive E-commerce",
-    year: "2025",
-    href: "/portfolio#gas-and-gear",
-    image:
-      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200&auto=format&fit=crop",
-    alt: "Classic car engine bay representing the Gas & Gear automotive store",
-    wide: true,
-  },
-  {
     name: "OpenCredit.Money",
     category: "Fintech Platform",
     year: "2025",
@@ -29,17 +19,7 @@ const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
     alt: "Payment card and laptop representing the OpenCredit fintech platform",
-    wide: false,
-  },
-  {
-    name: "EdgeGrip Tyres",
-    category: "E-commerce & Branding",
-    year: "2024",
-    href: "/portfolio",
-    image:
-      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200&auto=format&fit=crop",
-    alt: "Car on a mountain road representing EdgeGrip Tyres",
-    wide: false,
+    wide: true,
   },
   {
     name: "Right Asset Management",
@@ -49,7 +29,7 @@ const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop",
     alt: "Modern building facade representing Right Asset Management",
-    wide: true,
+    wide: false,
   },
   {
     name: "Krushiyuga Farm",
@@ -59,7 +39,7 @@ const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=1200&auto=format&fit=crop",
     alt: "Golden farm field at sunset representing Krushiyuga Farm",
-    wide: true,
+    wide: false,
   },
   {
     name: "Nithyam Organics",
@@ -69,7 +49,7 @@ const PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop",
     alt: "Fresh organic produce display representing Nithyam Organics",
-    wide: false,
+    wide: true,
   },
 ];
 
@@ -98,6 +78,24 @@ export default function Portfolio() {
           }
         );
       });
+
+      // Images drift slower than their cards for subtle depth
+      gsap.utils.toArray<HTMLElement>("[data-project-plx]").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: -5 },
+          {
+            yPercent: 5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -113,7 +111,7 @@ export default function Portfolio() {
               Our recent work
             </h2>
           </div>
-          <PillButton href="#contact">Start Your Project</PillButton>
+          <PillButton href="#quote">Start Your Project</PillButton>
         </div>
 
         <div className="mt-14 grid gap-x-6 gap-y-12 md:grid-cols-12">
@@ -133,13 +131,20 @@ export default function Portfolio() {
                   project.wide ? "aspect-[16/10]" : "aspect-[4/3.2]"
                 }`}
               >
-                <Image
-                  src={project.image}
-                  alt={project.alt}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+                {/* Oversized wrapper gives the parallax drift room to move
+                    without exposing edges */}
+                <div
+                  data-project-plx
+                  className="absolute -inset-y-[9%] inset-x-0 will-change-transform"
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.alt}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
                 {/* Year tab */}
                 <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur-sm">
                   {project.year}

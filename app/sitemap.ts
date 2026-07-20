@@ -6,6 +6,7 @@ const BASE_URL = "https://www.itbizone.com";
 // Top-level + standalone routes (web-development has its own bespoke page)
 const STATIC_PATHS = [
   "",
+  "/about",
   "/services",
   "/services/web-development",
   "/portfolio",

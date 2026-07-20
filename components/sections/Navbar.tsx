@@ -26,10 +26,9 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/#about" },
+  { label: "About Us", href: "/about" },
   { label: "Services", href: "/services", hasDropdown: true },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Pricing", href: "/#pricing" },
   { label: "Blog", href: "/#blog" },
   { label: "Contact Us", href: "/contact" },
 ];

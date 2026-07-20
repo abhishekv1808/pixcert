@@ -82,7 +82,7 @@ export default function Blog() {
           {POSTS.map((post) => (
             <Link
               key={post.title}
-              href="#contact"
+              href="#quote"
               data-post
               className="group block"
             >

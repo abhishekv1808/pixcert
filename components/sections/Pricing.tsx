@@ -163,7 +163,7 @@ export default function Pricing() {
 
               <div className="flex flex-wrap items-center gap-5 pt-10">
                 <Link
-                  href="#contact"
+                  href="#quote"
                   className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold transition-colors duration-300 hover:bg-primary-deep"
                 >
                   Get Started
@@ -217,7 +217,7 @@ export default function Pricing() {
                 </ul>
 
                 <Link
-                  href="#contact"
+                  href="#quote"
                   className="group mt-6 inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-white"
                 >
                   {plan.cta}

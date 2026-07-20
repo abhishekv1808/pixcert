@@ -161,7 +161,7 @@ export default function CoreFeatures() {
                 performance, scalability, and an exceptional user experience
                 for every project.
               </p>
-              <PillButton href="#contact" className="mt-7">
+              <PillButton href="#quote" className="mt-7">
                 Contact Us
               </PillButton>
             </div>

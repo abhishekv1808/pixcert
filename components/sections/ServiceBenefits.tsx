@@ -95,7 +95,7 @@ export default function ServiceBenefits({ slug }: { slug: string }) {
               ))}
             </dl>
 
-            <PillButton href="#contact" size="lg" className="mt-9">
+            <PillButton href="#quote" size="lg" className="mt-9">
               Get a Free Quote
             </PillButton>
           </div>

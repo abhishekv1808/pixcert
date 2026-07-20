@@ -13,7 +13,6 @@ import {
   Globe,
   Layers,
   Palette,
-  Rocket,
   Target,
   Users,
   Zap,
@@ -57,84 +56,6 @@ type CaseStudy = {
 };
 
 const CASE_STUDIES: CaseStudy[] = [
-  {
-    slug: "gas-and-gear",
-    client: "Gas & Gear",
-    tagline: "From garage brand to India's fastest automotive e-commerce",
-    category: "Automotive E-commerce",
-    year: "2025",
-    duration: "6 weeks",
-    heroImage:
-      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1400&auto=format&fit=crop",
-    heroImageAlt:
-      "Classic car engine bay representing the Gas & Gear automotive store",
-    coverColor: "from-amber-900/60 via-amber-950/40",
-    challenge:
-      "Gas & Gear had a growing Instagram audience of 12K+ followers but zero online sales. Their products were scattered across WhatsApp catalogs and PDF price lists. Customers had to DM for every price inquiry, and the team was losing 4+ hours daily answering repetitive questions.",
-    solution:
-      "We built a blazing-fast e-commerce store on Next.js with a custom product filtering system, integrated Razorpay payments, and automated order notifications via WhatsApp. The catalog was designed to match their bold, automotive-enthusiast brand voice.",
-    approach:
-      "We started with a deep-dive into their customer journey — understanding how enthusiasts browse, compare, and decide. Every page was built mobile-first since 80% of their traffic came from Instagram links on phones.",
-    techStack: [
-      "Next.js 14",
-      "Tailwind CSS",
-      "Razorpay",
-      "WhatsApp API",
-      "Vercel",
-      "Sanity CMS",
-    ],
-    highlights: [
-      {
-        icon: Rocket,
-        label: "Load Time",
-        value: "1.2s",
-      },
-      {
-        icon: Target,
-        label: "Conversion Rate",
-        value: "4.8%",
-      },
-      {
-        icon: Users,
-        label: "Monthly Visitors",
-        value: "8,200+",
-      },
-      {
-        icon: Zap,
-        label: "Hours Saved / Week",
-        value: "22+",
-      },
-    ],
-    screenshotSections: [
-      {
-        title: "Homepage that sells the lifestyle",
-        description:
-          "The hero section immediately communicates speed and power. We used high-contrast photography with bold typography to match their brand's adrenaline-charged personality. The 'Shop by Vehicle' module was the #1 requested feature.",
-        image: "/images/site-zixflow.png",
-        imageAlt: "Gas & Gear homepage design",
-      },
-      {
-        title: "Smart product filtering",
-        description:
-          "Customers can filter by vehicle make, model, year, and part type — all in under 200ms. We built a custom faceted search that eliminates dead-end results and always shows available inventory first.",
-        image: "/images/site-breyta.png",
-        imageAlt: "Gas & Gear product filtering system",
-      },
-      {
-        title: "Frictionless checkout flow",
-        description:
-          "A single-page checkout with Razorpay integration, auto-applied coupons, and real-time shipping estimates. Mobile checkout completion rate jumped from 12% to 68% compared to their previous WhatsApp ordering.",
-        image: "/images/site-kosmik.png",
-        imageAlt: "Gas & Gear checkout page",
-      },
-    ],
-    testimonial: {
-      quote:
-        "ITBIZONE didn't just build us a website — they understood our customers better than we did. The filtering system alone has changed how people shop with us.",
-      name: "Rahul Mehta",
-      role: "Founder, Gas & Gear",
-    },
-  },
   {
     slug: "opencredit-money",
     client: "OpenCredit.Money",
@@ -643,7 +564,11 @@ export default function PortfolioPage() {
                 <motion.div
                   key={study.slug}
                   initial={{ opacity: 0, y: 40, rotate: 0 }}
-                  animate={{ opacity: 1, y: 0, rotate: (i - 1) * 7 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    rotate: (i - (CASE_STUDIES.length - 1) / 2) * 7,
+                  }}
                   transition={{
                     delay: 0.9 + i * 0.15,
                     type: "spring",
