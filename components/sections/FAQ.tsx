@@ -101,22 +101,35 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
                     onClick={() => setOpen(isOpen ? -1 : i)}
-                    className="flex w-full items-center justify-between gap-6 py-6 text-left"
+                    className="group flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span
-                      className={cn(
-                        "font-heading text-lg font-bold transition-colors duration-300",
-                        isOpen ? "text-primary" : "text-white"
-                      )}
-                    >
-                      {faq.question}
+                    <span className="flex items-baseline gap-4">
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "font-heading text-sm font-bold tabular-nums transition-colors duration-300",
+                          isOpen
+                            ? "text-primary"
+                            : "text-white/25 group-hover:text-primary/70"
+                        )}
+                      >
+                        0{i + 1}
+                      </span>
+                      <span
+                        className={cn(
+                          "font-heading text-lg font-bold transition-[color,transform] duration-300 group-hover:translate-x-1",
+                          isOpen ? "text-primary" : "text-white"
+                        )}
+                      >
+                        {faq.question}
+                      </span>
                     </span>
                     <span
                       className={cn(
                         "flex size-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
                         isOpen
                           ? "rotate-45 border-primary bg-primary text-white"
-                          : "border-white/20 text-white"
+                          : "border-white/20 text-white group-hover:border-primary/60 group-hover:text-primary"
                       )}
                     >
                       <Plus aria-hidden="true" className="size-4" />
@@ -131,7 +144,7 @@ export default function FAQ() {
                   )}
                 >
                   <div className="overflow-hidden">
-                    <p className="max-w-xl pb-6 text-sm leading-relaxed text-white/60">
+                    <p className="max-w-xl pb-6 pl-9 text-sm leading-relaxed text-white/60">
                       {faq.answer}
                     </p>
                   </div>

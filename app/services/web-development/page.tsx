@@ -7,7 +7,7 @@ import WebDevSpotlight from "@/components/sections/WebDevSpotlight";
 import WebDevProcess from "@/components/sections/WebDevProcess";
 import Pricing from "@/components/sections/Pricing";
 import TechStack from "@/components/sections/TechStack";
-import Testimonials from "@/components/sections/Testimonials";
+import WebDevTestimonials from "@/components/sections/WebDevTestimonials";
 import FAQ from "@/components/sections/FAQ";
 import QuoteForm from "@/components/sections/QuoteForm";
 import CTABanner from "@/components/sections/CTABanner";
@@ -35,7 +35,7 @@ export default function WebDevelopmentPage() {
         <WebDevSpotlight />
         <Pricing />
         <WebDevProcess />
-        <Testimonials />
+        <WebDevTestimonials />
         <TechStack />
         <QuoteForm />
         <FAQ />

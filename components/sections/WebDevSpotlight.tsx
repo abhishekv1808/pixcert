@@ -1,10 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import { TrendingUp, Zap, Gauge } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+
+/* Three.js 3D stage behind the pinned story — client-only */
+const SpotlightStage = dynamic(
+  () => import("@/components/three/SpotlightStage"),
+  { ssr: false },
+);
 
 const SHOWCASE_IMAGE = "/images/site-openlayer.png";
 
@@ -75,6 +82,9 @@ export default function WebDevSpotlight() {
   const shotWrapRef = useRef<HTMLDivElement>(null);
   const shotRef = useRef<HTMLImageElement>(null);
   const urlRef = useRef<HTMLSpanElement>(null);
+  /* Scroll progress shared with the Three.js stage (written by GSAP,
+     read by the render loop — never triggers React renders) */
+  const stageProgress = useRef(0);
 
   useEffect(() => {
     if (!sectionRef.current || prefersReducedMotion()) return;
@@ -90,7 +100,12 @@ export default function WebDevSpotlight() {
         transformOrigin: "center top",
       });
       gsap.set("[data-spot-feature]", { autoAlpha: 0, y: 28 });
-      gsap.set("[data-spot-phone]", { yPercent: 135, autoAlpha: 0 });
+      gsap.set("[data-spot-phone]", {
+        yPercent: 135,
+        autoAlpha: 0,
+        rotationY: -10,
+        transformPerspective: 900,
+      });
       gsap.set("[data-spot-phone-label]", { autoAlpha: 0, y: 20 });
       gsap.set("[data-spot-cta]", { autoAlpha: 0, y: 24 });
       gsap.set("[data-spot-halo]", { autoAlpha: 0 });
@@ -104,6 +119,9 @@ export default function WebDevSpotlight() {
           end: "bottom bottom",
           scrub: 0.6,
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            stageProgress.current = self.progress;
+          },
         },
       });
 
@@ -227,6 +245,21 @@ export default function WebDevSpotlight() {
 
       // Phase D: the pitch lands
       tl.to("[data-spot-cta]", { autoAlpha: 1, y: 0, duration: 0.45 }, 4.65);
+
+      // Pointer parallax: the device swivels a few degrees toward the
+      // cursor. Only rotationY is driven here — the scrub timeline owns
+      // rotationX, so the two never fight.
+      const swivel = gsap.quickTo("[data-spot-device]", "rotationY", {
+        duration: 0.7,
+        ease: "power2.out",
+      });
+      const onPointerMove = (e: PointerEvent) => {
+        swivel((e.clientX / window.innerWidth - 0.5) * 7);
+      };
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      return () => {
+        window.removeEventListener("pointermove", onPointerMove);
+      };
     });
 
     // Below lg: static layout animates in once, no pinning
@@ -266,6 +299,12 @@ export default function WebDevSpotlight() {
             className="absolute inset-0 bg-[radial-gradient(45%_50%_at_0%_0%,rgba(255,74,23,0.2)_0%,transparent_70%),radial-gradient(50%_55%_at_100%_100%,rgba(255,74,23,0.16)_0%,transparent_70%)]"
           />
           <div aria-hidden="true" className="grain-overlay absolute inset-0" />
+
+          {/* Three.js space: wireframe floor, particle depth field, and
+              portal rings — all scrubbed by the same scroll progress */}
+          <div aria-hidden="true" className="absolute inset-0 hidden lg:block">
+            <SpotlightStage progress={stageProgress} />
+          </div>
 
           {/* ====================== Desktop pinned stage ====================== */}
           <div className="relative z-10 hidden h-full lg:block">
@@ -341,21 +380,32 @@ export default function WebDevSpotlight() {
                       : "right-6 xl:right-[5%]"
                   }`}
                 >
-                  <span className="flex size-11 items-center justify-center rounded-full bg-primary/15 text-primary xl:size-14">
-                    <feature.icon aria-hidden="true" className="size-5 xl:size-6" />
-                  </span>
-                  <p
-                    data-spot-stat
-                    className="mt-5 font-heading text-4xl font-bold text-primary xl:text-6xl 2xl:text-7xl"
+                  {/* Inner wrapper carries a static 3D angle toward centre
+                      stage; GSAP animates the outer element, so the two
+                      transforms never fight */}
+                  <div
+                    className={
+                      feature.side === "left"
+                        ? "[transform:perspective(1100px)_rotateY(9deg)]"
+                        : "[transform:perspective(1100px)_rotateY(-9deg)]"
+                    }
                   >
-                    {feature.stat}
-                  </p>
-                  <h3 className="mt-2 font-heading text-xl font-bold text-white xl:mt-3 xl:text-3xl">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-white/60 xl:mt-4 xl:text-lg xl:text-white/70">
-                    {feature.copy}
-                  </p>
+                    <span className="flex size-11 items-center justify-center rounded-full bg-primary/15 text-primary xl:size-14">
+                      <feature.icon aria-hidden="true" className="size-5 xl:size-6" />
+                    </span>
+                    <p
+                      data-spot-stat
+                      className="mt-5 font-heading text-4xl font-bold text-primary xl:text-6xl 2xl:text-7xl"
+                    >
+                      {feature.stat}
+                    </p>
+                    <h3 className="mt-2 font-heading text-xl font-bold text-white xl:mt-3 xl:text-3xl">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2.5 text-sm leading-relaxed text-white/60 xl:mt-4 xl:text-lg xl:text-white/70">
+                      {feature.copy}
+                    </p>
+                  </div>
                 </div>
               ))}
 

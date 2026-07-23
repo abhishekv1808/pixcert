@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { CalendarCheck } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import CursorGlow from "@/components/ui/CursorGlow";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const CALENDLY_URL = "https://calendly.com/abhishek-v1808/30min";
@@ -12,6 +13,8 @@ export default function DiscoveryCall() {
 
   useEffect(() => {
     if (!sectionRef.current || prefersReducedMotion()) return;
+
+    let removeMagnet: (() => void) | undefined;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -29,9 +32,36 @@ export default function DiscoveryCall() {
           },
         }
       );
+
+      // Magnetic CTA: drifts toward the cursor, springs back on leave
+      const btn = sectionRef.current?.querySelector<HTMLElement>(
+        "[data-discovery-cta]",
+      );
+      if (btn) {
+        const x = gsap.quickTo(btn, "x", { duration: 0.4, ease: "power3.out" });
+        const y = gsap.quickTo(btn, "y", { duration: 0.4, ease: "power3.out" });
+        const onMove = (e: MouseEvent) => {
+          const rect = btn.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width / 2);
+          const dy = e.clientY - (rect.top + rect.height / 2);
+          if (Math.hypot(dx, dy) < 130) {
+            x(dx * 0.3);
+            y(dy * 0.3);
+          } else {
+            x(0);
+            y(0);
+          }
+        };
+        window.addEventListener("mousemove", onMove, { passive: true });
+        removeMagnet = () =>
+          window.removeEventListener("mousemove", onMove);
+      }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      removeMagnet?.();
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -39,8 +69,9 @@ export default function DiscoveryCall() {
       <div className="mx-auto max-w-6xl px-6">
         <div
           data-discovery-card
-          className="flex flex-col items-center rounded-3xl border border-ink/10 bg-white px-6 py-16 text-center shadow-sm sm:py-20"
+          className="relative flex flex-col items-center overflow-hidden rounded-3xl border border-ink/10 bg-white px-6 py-16 text-center shadow-sm sm:py-20"
         >
+          <CursorGlow size={420} />
           <Logo variant="black" />
 
           <p className="mt-10 font-heading text-2xl font-bold text-ink/35 sm:text-4xl">
@@ -60,7 +91,8 @@ export default function DiscoveryCall() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
+              data-discovery-cta
+              className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-colors will-change-transform hover:bg-primary-deep"
             >
               <CalendarCheck aria-hidden="true" className="size-4" />
               Schedule Now

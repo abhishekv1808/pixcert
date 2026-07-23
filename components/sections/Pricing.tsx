@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import CursorGlow from "@/components/ui/CursorGlow";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const FEATURED_PLAN = {
@@ -75,6 +76,22 @@ export default function Pricing() {
           },
         }
       );
+
+      // Featured price counts up from zero as the card arrives
+      const priceEl =
+        sectionRef.current?.querySelector<HTMLElement>("[data-price-counter]");
+      if (priceEl) {
+        const counter = { v: 0 };
+        gsap.to(counter, {
+          v: 59999,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: { trigger: priceEl, start: "top 82%", once: true },
+          onUpdate: () => {
+            priceEl.textContent = `₹${Math.round(counter.v).toLocaleString("en-IN")}`;
+          },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -100,13 +117,14 @@ export default function Pricing() {
           {/* Featured plan — the anchor of the section */}
           <article
             data-plan
-            className="relative flex flex-col overflow-hidden rounded-3xl bg-dark p-9 text-white sm:p-12 lg:col-span-3"
+            className="group relative flex flex-col overflow-hidden rounded-3xl bg-dark p-9 text-white sm:p-12 lg:col-span-3"
           >
             {/* Ambient glow */}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-primary/25 blur-3xl"
             />
+            <CursorGlow color="rgba(255,74,23,0.14)" size={420} />
 
             <div className="relative flex h-full flex-col">
               <div className="flex flex-wrap items-center justify-between gap-4">
@@ -126,7 +144,10 @@ export default function Pricing() {
               </p>
 
               <p className="mt-9 flex items-baseline gap-2.5">
-                <span className="font-heading text-5xl font-bold sm:text-7xl">
+                <span
+                  data-price-counter
+                  className="font-heading text-5xl font-bold tabular-nums sm:text-7xl"
+                >
                   {FEATURED_PLAN.price}
                 </span>
                 <span className="text-sm text-white/50">
@@ -185,8 +206,9 @@ export default function Pricing() {
               <article
                 key={plan.name}
                 data-plan
-                className="group/card flex flex-1 flex-col rounded-3xl border border-ink/10 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5"
+                className="group/card relative flex flex-1 flex-col overflow-hidden rounded-3xl border border-ink/10 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-lg hover:shadow-ink/5"
               >
+                <CursorGlow />
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-heading text-lg font-bold text-ink">
                     {plan.name}

@@ -3,10 +3,17 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Phone, Star } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import type { WireVariant } from "@/components/three/WireShape";
+
+/* Live 3D wireframe icons (desktop) — the SVGs below stay as fallback */
+const WireShape = dynamic(() => import("@/components/three/WireShape"), {
+  ssr: false,
+});
 
 /* Wireframe line-art icons drawn in the primary colour */
 function KnotIcon() {
@@ -39,7 +46,14 @@ function RingsIcon() {
   );
 }
 
-const FEATURES = [
+const FEATURES: Array<{
+  value: number;
+  suffix: string;
+  label: string;
+  description: string;
+  Icon: () => React.ReactNode;
+  shape: WireVariant;
+}> = [
   {
     value: 50,
     suffix: "+",
@@ -47,6 +61,7 @@ const FEATURES = [
     description:
       "Websites built from scratch with clean code, modern design, and performance optimized for speed and SEO.",
     Icon: KnotIcon,
+    shape: "knot",
   },
   {
     value: 120,
@@ -55,6 +70,7 @@ const FEATURES = [
     description:
       "We seamlessly connect your website with third-party tools, APIs, and services to enhance functionality.",
     Icon: CubesIcon,
+    shape: "cubes",
   },
   {
     value: 100,
@@ -63,6 +79,7 @@ const FEATURES = [
     description:
       "Mobile-first designs that ensure your website looks great, performs smoothly, and engages users on any device.",
     Icon: RingsIcon,
+    shape: "rings",
   },
 ];
 
@@ -223,8 +240,13 @@ export default function CoreFeatures() {
                   <h3 className="mt-3 font-heading text-base font-bold text-white">
                     {feature.label}
                   </h3>
-                  <div className="flex flex-1 items-center justify-center py-10">
-                    <feature.Icon />
+                  <div className="flex flex-1 items-center justify-center py-6">
+                    <div className="relative size-44">
+                      <WireShape
+                        variant={feature.shape}
+                        fallback={<feature.Icon />}
+                      />
+                    </div>
                   </div>
                   <p className="border-t border-white/10 pt-6 text-sm leading-relaxed text-white/60">
                     {feature.description}

@@ -3,6 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
+import {
   ArrowUpRight,
   Bot,
   ChevronDown,
@@ -90,8 +96,10 @@ const SERVICES_MENU = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const reducedFm = useReducedMotion();
   const barRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -131,6 +139,26 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Hide on scroll down, reveal on scroll up. Small deltas are ignored
+  // so trackpad jitter doesn't make the bar flicker.
+  const { scrollY } = useScroll();
+  const lastScrollY = useRef(0);
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const delta = y - lastScrollY.current;
+    lastScrollY.current = y;
+    if (menuOpen || dropdownOpen || y < 140) {
+      setHidden(false);
+      return;
+    }
+    if (delta > 8) setHidden(true);
+    else if (delta < -4) setHidden(false);
+  });
+
+  // Never stay hidden while a menu is open
+  useEffect(() => {
+    if (menuOpen || dropdownOpen) setHidden(false);
+  }, [menuOpen, dropdownOpen]);
 
   // Animate dropdown items on open
   useEffect(() => {
@@ -179,7 +207,15 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-10">
+    <motion.header
+      animate={{ y: hidden ? "-130%" : "0%" }}
+      transition={
+        reducedFm
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 320, damping: 34 }
+      }
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-10"
+    >
       <div
         ref={barRef}
         className={cn(
@@ -358,6 +394,6 @@ export default function Navbar() {
           </p>
         </div>
       )}
-    </header>
+    </motion.header>
   );
 }

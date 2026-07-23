@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import {
   FileSearch,
   PenTool,
@@ -11,6 +12,12 @@ import {
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
+
+/* Ambient Three.js flow field behind the content — client-only */
+const MethodologyFlow = dynamic(
+  () => import("@/components/three/MethodologyFlow"),
+  { ssr: false },
+);
 
 const STEPS = [
   {
@@ -58,6 +65,8 @@ const STEPS = [
 export default function Process() {
   const sectionRef = useRef<HTMLElement>(null);
   const lineRef = useRef<SVGPathElement>(null);
+  /* Scroll progress shared with the ambient flow field (ref only) */
+  const flowProgress = useRef(0);
 
   useEffect(() => {
     if (!sectionRef.current || prefersReducedMotion()) return;
@@ -81,6 +90,9 @@ export default function Process() {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.6,
+          onUpdate: (self) => {
+            flowProgress.current = self.progress;
+          },
         },
       });
 
@@ -170,6 +182,14 @@ export default function Process() {
             className="pointer-events-none absolute -bottom-48 -left-40 size-[480px] rounded-full bg-emerald-500/[0.05] blur-3xl"
           />
 
+          {/* Faint particle current that advances with scroll (desktop) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 hidden lg:block"
+          >
+            <MethodologyFlow progress={flowProgress} />
+          </div>
+
           <div className="relative mx-auto w-full max-w-7xl px-6 py-24 sm:px-10 lg:py-10">
             <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
               <div>
@@ -221,14 +241,17 @@ export default function Process() {
 
               <ol className="grid gap-12 md:grid-cols-5 md:gap-6">
                 {STEPS.map((step) => (
-                  <li key={step.title} data-step className="relative">
+                  <li key={step.title} data-step className="group relative">
                     {/* Icon tile + number badge, both centred on the line */}
-                    <div className="flex items-center gap-4 md:justify-between">
+                    <div className="flex items-center gap-4 transition-transform duration-300 group-hover:-translate-y-1.5 md:justify-between">
                       <div
                         data-step-tile
                         className={`relative z-10 flex size-16 items-center justify-center rounded-2xl text-white shadow-lg ${step.tile}`}
                       >
-                        <step.icon aria-hidden="true" className="size-7" />
+                        <step.icon
+                          aria-hidden="true"
+                          className="size-7 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
+                        />
                       </div>
                       <span
                         data-step-badge
@@ -238,7 +261,7 @@ export default function Process() {
                       </span>
                     </div>
 
-                    <h3 className="mt-7 font-heading text-xl font-bold leading-snug text-ink">
+                    <h3 className="mt-7 font-heading text-xl font-bold leading-snug text-ink transition-colors duration-300 group-hover:text-primary">
                       {step.title}
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-body">

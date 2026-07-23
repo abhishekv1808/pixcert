@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import {
   CalendarCheck,
   ChevronRight,
@@ -24,19 +25,12 @@ import {
 import PillButton from "@/components/ui/PillButton";
 import { gsap, SplitText, prefersReducedMotion } from "@/lib/gsap";
 
-/* ------------------------------------------------------------------ */
-/*  Website screenshots for the horizontal auto-scroll                */
-/* ------------------------------------------------------------------ */
+import HeroScreenshotCarousel from "@/components/sections/HeroScreenshotCarousel";
 
-const SCREENSHOTS_ROW_1 = [
-  "/images/site-breyta.png",
-  "/images/site-kosmik.png",
-  "/images/site-zixflow.png",
-  "/images/site-headshotpro.png",
-  "/images/site-fusebase.png",
-  "/images/site-talkbase.png",
-  "/images/site-openlayer.png",
-];
+/* Three.js dot-wave field — client-only, loaded after hydration */
+const HeroDotField = dynamic(() => import("@/components/three/HeroDotField"), {
+  ssr: false,
+});
 
 const TRUST_AVATARS = [
   "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop",
@@ -125,6 +119,37 @@ function FloatingChip({
           <span className="block text-xs text-body">{chip.label}</span>
         </span>
       </motion.div>
+    </motion.div>
+  );
+}
+
+/* Magnetic hover: the wrapped element gravitates toward the cursor */
+function Magnetic({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const x = useSpring(0, { stiffness: 220, damping: 18, mass: 0.4 });
+  const y = useSpring(0, { stiffness: 220, damping: 18, mass: 0.4 });
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduced || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    x.set((e.clientX - rect.left - rect.width / 2) * 0.3);
+    y.set((e.clientY - rect.top - rect.height / 2) * 0.35);
+  };
+
+  const onMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x, y }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      {children}
     </motion.div>
   );
 }
@@ -264,6 +289,21 @@ export default function WebDevHero() {
           className="absolute -inset-y-[8%] inset-x-0 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(255,74,23,0.06)_0%,transparent_70%)]"
         />
 
+        {/* Interactive Three.js dot-wave field: ripples with the cursor,
+            emits rings on click, fades out before the screenshot deck */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_58%,transparent_90%)]"
+        >
+          <HeroDotField />
+        </div>
+
+        {/* Legibility veil so the copy stays crisp over the field */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(54%_44%_at_50%_34%,rgba(245,242,236,0.9)_0%,rgba(245,242,236,0.4)_58%,transparent_80%)]"
+        />
+
         {/* Floating proof chips drift with the cursor */}
         {CHIPS.map((chip) => (
           <FloatingChip key={chip.label} chip={chip} mx={mx} my={my} />
@@ -321,18 +361,22 @@ export default function WebDevHero() {
             data-wdh-cta
             className="mt-9 flex flex-wrap items-center justify-center gap-4"
           >
-            <PillButton href="#quote" size="lg">
-              Get a Free Quote
-            </PillButton>
-            <Link
-              href="https://wa.me/919535111129"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full border border-ink/15 px-7 py-4 text-sm font-semibold text-ink transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-white"
-            >
-              <MessageCircle aria-hidden="true" className="size-4" />
-              WhatsApp Us
-            </Link>
+            <Magnetic>
+              <PillButton href="#quote" size="lg">
+                Get a Free Quote
+              </PillButton>
+            </Magnetic>
+            <Magnetic>
+              <Link
+                href="https://wa.me/919535111129"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-ink/15 px-7 py-4 text-sm font-semibold text-ink transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-white"
+              >
+                <MessageCircle aria-hidden="true" className="size-4" />
+                WhatsApp Us
+              </Link>
+            </Magnetic>
           </div>
 
           {/* Note */}
@@ -405,21 +449,13 @@ export default function WebDevHero() {
             }
             className="will-change-transform"
           >
-            <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-              <div className="webdev-scroll-row flex w-max gap-5">
-                {[...SCREENSHOTS_ROW_1, ...SCREENSHOTS_ROW_1].map((src, i) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={`r1-${i}`}
-                    src={src}
-                    alt=""
-                    loading={i < 7 ? "eager" : "lazy"}
-                    className="h-64 w-auto rounded-xl border border-ink/[0.08] shadow-lg transition-transform duration-300 hover:scale-[1.03] sm:h-80 lg:h-[22rem]"
-                  />
-                ))}
-              </div>
-            </div>
+            <HeroScreenshotCarousel />
           </motion.div>
+
+          {/* Swipe hint for touch devices, where the drag pill never shows */}
+          <p className="mt-6 text-center text-xs font-semibold uppercase tracking-widest text-body lg:hidden">
+            Swipe to explore our work
+          </p>
 
           {/* Stage floor: soft ground shadow beneath the deck */}
           <div

@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import {
-  ChevronDown,
-  Coffee,
-  FileText,
-} from "lucide-react";
+import { Check, Clock, Coffee, FileText, PhoneCall, Shield } from "lucide-react";
+import CursorGlow from "@/components/ui/CursorGlow";
+import { cn } from "@/lib/utils";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const WEBSITE_TYPES = [
@@ -26,9 +24,14 @@ const ENQUIRY_SOURCES = [
   "Not sure yet",
 ];
 
+const PROMISES = [
+  { icon: Clock, text: "Fixed quote within 24 hours" },
+  { icon: PhoneCall, text: "Free 30-minute consultation call" },
+  { icon: Shield, text: "Post-launch support included" },
+];
 
-
-function SelectField({
+/* Tappable chips instead of a dropdown — one tap, no menus */
+function ChipGroup({
   label,
   options,
   value,
@@ -40,29 +43,33 @@ function SelectField({
   onChange: (v: string) => void;
 }) {
   return (
-    <label className="block">
-      <span className="text-sm font-semibold text-ink">{label}</span>
-      <span className="relative mt-2.5 block">
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full appearance-none rounded-xl border border-ink/15 bg-white px-4 py-3.5 text-sm text-ink outline-none transition-colors focus:border-primary"
-        >
-          <option value="" disabled>
-            Select...
-          </option>
-          {options.map((opt) => (
-            <option key={opt} value={opt}>
+    <fieldset>
+      <legend className="text-sm font-semibold text-ink">{label}</legend>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {options.map((opt) => {
+          const selected = value === opt;
+          return (
+            <button
+              key={opt}
+              type="button"
+              aria-pressed={selected}
+              onClick={() => onChange(selected ? "" : opt)}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200 active:scale-95",
+                selected
+                  ? "border-primary bg-primary text-white shadow-md shadow-primary/25"
+                  : "border-ink/15 bg-white text-ink hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary",
+              )}
+            >
+              {selected && (
+                <Check aria-hidden="true" className="size-3.5 shrink-0" />
+              )}
               {opt}
-            </option>
-          ))}
-        </select>
-        <ChevronDown
-          aria-hidden="true"
-          className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-ink/40"
-        />
-      </span>
-    </label>
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 }
 
@@ -120,33 +127,51 @@ export default function QuoteForm() {
           {/* Left: pitch card */}
           <div
             data-quote-block
-            className="relative flex flex-col rounded-3xl border border-ink/10 bg-white p-9 sm:p-11"
+            className="group relative flex flex-col overflow-hidden rounded-3xl border border-ink/10 bg-white p-9 sm:p-11"
           >
+            <CursorGlow />
             <span
               aria-hidden="true"
               className="size-4 rounded-full bg-primary"
             />
-            <div className="mt-auto pt-20">
+            <div className="mt-auto pt-14">
               <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 px-4 py-2 text-xs font-semibold text-ink shadow-sm">
-                <span
-                  aria-hidden="true"
-                  className="size-2 rounded-full bg-emerald-500"
-                />
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                  <span
+                    aria-hidden="true"
+                    className="relative inline-flex size-2 rounded-full bg-emerald-500"
+                  />
+                </span>
                 2 Spots Left
               </span>
               <h2 className="mt-5 font-heading text-3xl font-bold leading-tight text-ink sm:text-5xl">
                 Get your price within 24 hours
               </h2>
+
+              <ul className="mt-8 space-y-3.5 border-t border-ink/[0.07] pt-7">
+                {PROMISES.map((promise) => (
+                  <li
+                    key={promise.text}
+                    className="flex items-center gap-3 text-sm font-medium text-ink/80"
+                  >
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <promise.icon aria-hidden="true" className="size-4" />
+                    </span>
+                    {promise.text}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
           {/* Right: form card */}
           <div
             data-quote-block
-            className="rounded-3xl border border-ink/10 bg-white p-9 sm:p-11"
+            className="rounded-3xl border border-ink/10 bg-white p-9 transition-[border-color,box-shadow] duration-300 focus-within:border-primary/30 focus-within:shadow-xl focus-within:shadow-primary/[0.06] sm:p-11"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <SelectField
+            <form onSubmit={handleSubmit} className="space-y-7">
+              <ChipGroup
                 label="What kind of website do you need?"
                 options={WEBSITE_TYPES}
                 value={websiteType}
@@ -162,7 +187,7 @@ export default function QuoteForm() {
                 <Coffee aria-hidden="true" className="size-4 shrink-0" />
               </p>
 
-              <SelectField
+              <ChipGroup
                 label="Where do you want client enquiries to come from?"
                 options={ENQUIRY_SOURCES}
                 value={enquirySource}
@@ -174,7 +199,7 @@ export default function QuoteForm() {
                   Where should we send the Quote to?
                 </span>
                 <div className="mt-2.5 grid gap-3 sm:grid-cols-2">
-                  <span className="flex items-center gap-2 rounded-xl border border-ink/15 bg-white px-4 py-3.5 focus-within:border-primary">
+                  <span className="flex items-center gap-2 rounded-xl border border-ink/15 bg-white px-4 py-3.5 transition-colors focus-within:border-primary">
                     <span className="flex shrink-0 items-center gap-1.5 border-r border-ink/15 pr-3 text-sm text-ink">
                       <span aria-hidden="true">🇮🇳</span> +91
                     </span>
@@ -203,7 +228,7 @@ export default function QuoteForm() {
               <div className="flex justify-center pt-2">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-deep hover:shadow-xl hover:shadow-primary/30 active:translate-y-0 active:scale-[0.98]"
                 >
                   <FileText aria-hidden="true" className="size-4" />
                   Get Quote
@@ -212,8 +237,6 @@ export default function QuoteForm() {
             </form>
           </div>
         </div>
-
-
       </div>
     </section>
   );

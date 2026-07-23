@@ -3,9 +3,16 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Globe, Phone, Server, ShoppingBag } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import CursorGlow from "@/components/ui/CursorGlow";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
+
+/* Three.js wireframe orb — client-only, loaded after hydration */
+const TechOrb = dynamic(() => import("@/components/three/TechOrb"), {
+  ssr: false,
+});
 
 const STACKS = [
   {
@@ -112,6 +119,14 @@ export default function TechStack() {
         />
         <div aria-hidden="true" className="grain-overlay absolute inset-0" />
 
+        {/* Wireframe tech orb spins in the corner and tilts toward the cursor */}
+        <div
+          aria-hidden="true"
+          className="absolute -top-10 right-[2%] hidden size-80 lg:block xl:right-[5%]"
+        >
+          <TechOrb />
+        </div>
+
         <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 sm:px-10 lg:py-28">
           <div className="text-center">
             <SectionEyebrow tone="light" align="center">
@@ -127,9 +142,10 @@ export default function TechStack() {
               <article
                 key={stack.title}
                 data-stack-card
-                className="flex flex-col rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-7"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-7 transition-colors duration-300 hover:border-primary/30"
               >
-                <span className="flex size-12 items-center justify-center rounded-full bg-primary text-white">
+                <CursorGlow color="rgba(255,74,23,0.12)" size={320} />
+                <span className="flex size-12 items-center justify-center rounded-full bg-primary text-white transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110">
                   <stack.Icon aria-hidden="true" className="size-5" />
                 </span>
 
@@ -142,20 +158,28 @@ export default function TechStack() {
 
                 <ul className="mt-7 flex gap-3 border-t border-white/10 pt-7">
                   {stack.techs.map((tech) => (
-                    <li
-                      key={tech.slug}
-                      className="flex size-11 items-center justify-center rounded-full bg-white"
-                      title={tech.name}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={`https://cdn.simpleicons.org/${tech.slug}/0A0A0A`}
-                        alt={tech.name}
-                        width={20}
-                        height={20}
-                        loading="lazy"
-                        className="size-5"
-                      />
+                    <li key={tech.slug} className="group/tech relative">
+                      {/* Name tooltip pops above the chip on hover */}
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-md bg-white px-2 py-1 text-[10px] font-bold text-ink opacity-0 shadow-lg transition-all duration-200 group-hover/tech:translate-y-0 group-hover/tech:opacity-100"
+                      >
+                        {tech.name}
+                      </span>
+                      <span
+                        className="flex size-11 items-center justify-center rounded-full bg-white transition-transform duration-300 group-hover/tech:-translate-y-1 group-hover/tech:scale-110"
+                        title={tech.name}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={`https://cdn.simpleicons.org/${tech.slug}/0A0A0A`}
+                          alt={tech.name}
+                          width={20}
+                          height={20}
+                          loading="lazy"
+                          className="size-5"
+                        />
+                      </span>
                     </li>
                   ))}
                 </ul>

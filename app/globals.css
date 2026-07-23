@@ -99,25 +99,6 @@ h5 {
   animation-play-state: paused;
 }
 
-/* Horizontal auto-scrolling screenshot rows (web-dev hero) */
-@keyframes webdev-scroll-x {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.webdev-scroll-row {
-  animation: webdev-scroll-x 40s linear infinite;
-}
-.webdev-scroll-row-reverse {
-  animation-direction: reverse;
-}
-.webdev-scroll-row:hover {
-  animation-play-state: paused;
-}
-
 /* Nav link underline grow */
 .nav-link {
   position: relative;

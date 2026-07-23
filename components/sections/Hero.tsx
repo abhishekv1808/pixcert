@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, ScrollTrigger, SplitText, prefersReducedMotion } from "@/lib/gsap";
+
+/* Three.js constellation network floating over the video — client-only */
+const HeroConstellation = dynamic(
+  () => import("@/components/three/HeroConstellation"),
+  { ssr: false },
+);
 
 const STATS = [
   {
@@ -149,6 +156,10 @@ export default function Hero() {
           aria-hidden="true"
           className="absolute inset-0 bg-[radial-gradient(70%_55%_at_48%_42%,rgba(10,10,10,0.4)_0%,rgba(10,10,10,0.1)_60%,transparent_100%)]"
         />
+
+        {/* Constellation network: nodes drift in depth, link to their
+            neighbours, chase the cursor, and shockwave on click */}
+        <HeroConstellation />
 
         <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-6 pb-20 pt-40 text-center sm:pt-48 lg:pt-52">
           <p

@@ -11,6 +11,7 @@ import {
   Rocket,
 } from "lucide-react";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import CursorGlow from "@/components/ui/CursorGlow";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const STEPS = [
@@ -64,13 +65,28 @@ export default function WebDevProcess() {
     if (!sectionRef.current || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      // Spine draws downward as the reader moves through the steps
+      // Spine draws downward as the reader moves through the steps,
+      // with a glowing orb riding its tip
       if (lineRef.current) {
         gsap.fromTo(
           lineRef.current,
           { scaleY: 0 },
           {
             scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "[data-wdp-steps]",
+              start: "top 70%",
+              end: "bottom 60%",
+              scrub: 0.5,
+            },
+          },
+        );
+        gsap.fromTo(
+          "[data-wdp-orb]",
+          { top: "0%" },
+          {
+            top: "100%",
             ease: "none",
             scrollTrigger: {
               trigger: "[data-wdp-steps]",
@@ -160,6 +176,14 @@ export default function WebDevProcess() {
             aria-hidden="true"
             className="absolute bottom-0 left-5 top-0 w-px origin-top bg-primary md:left-1/2"
           />
+          {/* Orb riding the tip of the drawn spine */}
+          <div
+            data-wdp-orb
+            aria-hidden="true"
+            className="absolute left-5 top-0 z-10 -translate-x-1/2 -translate-y-1/2 md:left-1/2"
+          >
+            <span className="block size-3 rounded-full bg-primary shadow-[0_0_18px_5px_rgba(255,74,23,0.45)]" />
+          </div>
 
           <ol className="space-y-12 md:space-y-16">
             {STEPS.map((step, i) => {
@@ -178,14 +202,15 @@ export default function WebDevProcess() {
 
                   <div
                     data-wdp-card
-                    className={`group rounded-2xl border border-ink/10 bg-white p-7 shadow-sm transition-shadow duration-300 hover:shadow-lg hover:shadow-ink/5 sm:p-8 ${
+                    className={`group relative overflow-hidden rounded-2xl border border-ink/10 bg-white p-7 shadow-sm transition-[box-shadow,border-color] duration-300 hover:border-primary/25 hover:shadow-lg hover:shadow-ink/5 sm:p-8 ${
                       left
                         ? "md:col-start-1 md:mr-12"
                         : "md:col-start-2 md:ml-12"
                     }`}
                   >
+                    <CursorGlow />
                     <div className="flex items-center justify-between gap-4">
-                      <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                      <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
                         <step.icon aria-hidden="true" className="size-5" />
                       </span>
                       <span className="rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-white">

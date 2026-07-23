@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import CursorGlow from "@/components/ui/CursorGlow";
 
 const TYPES = [
   {
@@ -63,7 +64,13 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-function TiltCard({ type }: { type: (typeof TYPES)[number] }) {
+function TiltCard({
+  type,
+  index,
+}: {
+  type: (typeof TYPES)[number];
+  index: number;
+}) {
   const rotateX = useSpring(useMotionValue(0), { stiffness: 180, damping: 20 });
   const rotateY = useSpring(useMotionValue(0), { stiffness: 180, damping: 20 });
 
@@ -87,8 +94,17 @@ function TiltCard({ type }: { type: (typeof TYPES)[number] }) {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       style={{ rotateX, rotateY, transformPerspective: 900 }}
-      className="group relative flex flex-col rounded-2xl border border-ink/10 bg-white p-7 transition-shadow duration-300 will-change-transform hover:shadow-xl hover:shadow-ink/[0.06]"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white p-7 transition-[box-shadow,border-color] duration-300 will-change-transform hover:border-primary/25 hover:shadow-xl hover:shadow-ink/[0.06]"
     >
+      {/* Cursor spotlight + oversized index that warms up on hover */}
+      <CursorGlow />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-3 right-4 font-heading text-7xl font-bold leading-none text-ink/[0.045] transition-colors duration-300 group-hover:text-primary/15"
+      >
+        0{index + 1}
+      </span>
+
       {type.popular && (
         <span className="absolute right-5 top-5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">
           Most Requested
@@ -152,8 +168,8 @@ export default function WebDevTypes() {
           transition={{ staggerChildren: 0.08 }}
           className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {TYPES.map((type) => (
-            <TiltCard key={type.title} type={type} />
+          {TYPES.map((type, i) => (
+            <TiltCard key={type.title} type={type} index={i} />
           ))}
         </motion.div>
       </div>

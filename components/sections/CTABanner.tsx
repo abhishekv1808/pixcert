@@ -2,8 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
+
+/* Three.js ember particles — client-only, loaded after hydration */
+const EmberField = dynamic(() => import("@/components/three/EmberField"), {
+  ssr: false,
+});
 
 export default function CTABanner() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -86,6 +92,9 @@ export default function CTABanner() {
           className="pointer-events-none absolute -bottom-48 -right-24 size-[480px] rounded-full bg-primary-deep/80 blur-3xl"
         />
         <div aria-hidden="true" className="grain-overlay absolute inset-0" />
+
+        {/* Embers drift upward and part around the cursor */}
+        <EmberField />
 
         {/* Giant hollow watermark clipped at the bottom edge */}
         <span

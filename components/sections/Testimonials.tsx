@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Quote, Star } from "lucide-react";
+import DragMarquee from "@/components/ui/DragMarquee";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 type Testimonial = {
@@ -100,12 +101,23 @@ const ROW_TWO: Testimonial[] = [
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <figure className="mx-3 flex w-[320px] shrink-0 flex-col justify-between rounded-2xl border border-ink/[0.08] bg-white p-7 shadow-sm sm:w-[360px]">
+    <figure className="mx-3 flex w-[320px] shrink-0 flex-col justify-between rounded-2xl border border-ink/[0.08] bg-white p-7 shadow-sm transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:border-primary/20 hover:shadow-lg hover:shadow-ink/[0.07] sm:w-[360px]">
       <div>
-        <Quote
-          aria-hidden="true"
-          className="size-7 rotate-180 fill-primary/60 text-primary/60"
-        />
+        <div className="flex items-center justify-between">
+          <Quote
+            aria-hidden="true"
+            className="size-7 rotate-180 fill-primary/60 text-primary/60"
+          />
+          <span className="flex items-center gap-0.5" aria-label="Rated 5 out of 5">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                aria-hidden="true"
+                className="size-3 fill-amber-400 text-amber-400"
+              />
+            ))}
+          </span>
+        </div>
         <blockquote className="mt-5 text-sm leading-relaxed text-body">
           {testimonial.quote}
         </blockquote>
@@ -117,6 +129,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             alt={`Portrait of ${testimonial.name}`}
             fill
             sizes="40px"
+            draggable={false}
             className="object-cover"
           />
         </span>
@@ -126,41 +139,6 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
         </span>
       </figcaption>
     </figure>
-  );
-}
-
-function MarqueeRow({
-  items,
-  reverse = false,
-  duration,
-}: {
-  items: Testimonial[];
-  reverse?: boolean;
-  duration: string;
-}) {
-  return (
-    <div className="overflow-hidden">
-      <div
-        className="marquee-track flex w-max items-stretch py-1 motion-reduce:[animation:none]"
-        style={{
-          animationDuration: duration,
-          animationDirection: reverse ? "reverse" : "normal",
-        }}
-      >
-        {/* Track is duplicated so the -50% translate loops seamlessly */}
-        {[false, true].map((hidden) => (
-          <div
-            key={hidden ? "clone" : "original"}
-            aria-hidden={hidden || undefined}
-            className="flex items-stretch"
-          >
-            {items.map((t) => (
-              <TestimonialCard key={t.name} testimonial={t} />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -213,9 +191,18 @@ export default function Testimonials() {
         </h2>
       </div>
 
+      {/* Both rows drift on their own and can be grabbed & thrown */}
       <div data-reveal className="mt-14 space-y-6 lg:mt-16">
-        <MarqueeRow items={ROW_ONE} duration="48s" />
-        <MarqueeRow items={ROW_TWO} duration="54s" reverse />
+        <DragMarquee speed={38} className="py-1">
+          {ROW_ONE.map((t) => (
+            <TestimonialCard key={t.name} testimonial={t} />
+          ))}
+        </DragMarquee>
+        <DragMarquee speed={32} reverse className="py-1">
+          {ROW_TWO.map((t) => (
+            <TestimonialCard key={t.name} testimonial={t} />
+          ))}
+        </DragMarquee>
       </div>
     </section>
   );
