@@ -76,6 +76,22 @@ export default function TechStack() {
           },
         }
       );
+
+      // Glow layer drifts against the scroll so the light feels alive
+      gsap.fromTo(
+        "[data-stack-glow]",
+        { yPercent: 7 },
+        {
+          yPercent: -7,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -90,8 +106,9 @@ export default function TechStack() {
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-dark">
         {/* Red corner glows + grain, lit from the right like the reference */}
         <div
+          data-stack-glow
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(50%_45%_at_100%_10%,rgba(255,74,23,0.3)_0%,transparent_70%),radial-gradient(45%_45%_at_92%_100%,rgba(255,74,23,0.18)_0%,transparent_70%),radial-gradient(35%_35%_at_0%_100%,rgba(255,74,23,0.08)_0%,transparent_70%)]"
+          className="absolute -inset-y-[8%] inset-x-0 bg-[radial-gradient(50%_45%_at_100%_10%,rgba(255,74,23,0.3)_0%,transparent_70%),radial-gradient(45%_45%_at_92%_100%,rgba(255,74,23,0.18)_0%,transparent_70%),radial-gradient(35%_35%_at_0%_100%,rgba(255,74,23,0.08)_0%,transparent_70%)]"
         />
         <div aria-hidden="true" className="grain-overlay absolute inset-0" />
 

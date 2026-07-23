@@ -67,6 +67,22 @@ export default function Services() {
           },
         }
       );
+
+      // Header lags slightly behind the scroll for a layered, deeper feel
+      gsap.fromTo(
+        "[data-services-header]",
+        { y: -20 },
+        {
+          y: 24,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -75,7 +91,10 @@ export default function Services() {
   return (
     <section id="services" ref={sectionRef} className="bg-dark py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <div
+          data-services-header
+          className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end"
+        >
           <div>
             <SectionEyebrow tone="light">Our Services</SectionEyebrow>
             <h2 className="mt-4 font-heading text-3xl font-bold leading-tight text-white sm:text-5xl">

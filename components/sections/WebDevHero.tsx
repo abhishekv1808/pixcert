@@ -15,6 +15,8 @@ import {
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
+  useScroll,
   useSpring,
   useTransform,
   type MotionValue,
@@ -134,6 +136,19 @@ function FloatingChip({
 export default function WebDevHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const deckRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+
+  // 3D deck: the screenshot strip starts tilted back like a product stage
+  // and flattens to face the viewer as it scrolls into view.
+  const { scrollYProgress: deckProgress } = useScroll({
+    target: deckRef,
+    offset: ["start end", "center 0.62"],
+  });
+  const deckSpring = useSpring(deckProgress, { stiffness: 90, damping: 22 });
+  const deckRotateX = useTransform(deckSpring, [0, 1], [34, 0]);
+  const deckScale = useTransform(deckSpring, [0, 1], [0.88, 1]);
+  const deckY = useTransform(deckSpring, [0, 1], [56, 0]);
 
   // Normalized cursor position (-0.5 … 0.5) drives the chip parallax
   const mx = useMotionValue(0);
@@ -370,25 +385,47 @@ export default function WebDevHero() {
           </div>
         </div>
 
-        {/* Horizontal auto-scrolling screenshots — single row */}
+        {/* Horizontal auto-scrolling screenshots — a 3D deck that tilts
+            back like a product stage and flattens as you scroll into it */}
         <div
+          ref={deckRef}
           data-wdh-images
-          className="relative z-10 mt-16 overflow-hidden pb-10 pt-8"
+          className="relative z-10 mt-16 pb-14 pt-8 [perspective:1300px]"
         >
-          <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
-            <div className="webdev-scroll-row flex w-max gap-5">
-              {[...SCREENSHOTS_ROW_1, ...SCREENSHOTS_ROW_1].map((src, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={`r1-${i}`}
-                  src={src}
-                  alt=""
-                  loading={i < 7 ? "eager" : "lazy"}
-                  className="h-64 w-auto rounded-xl border border-ink/[0.08] shadow-lg transition-transform duration-300 hover:scale-[1.03] sm:h-80 lg:h-[22rem]"
-                />
-              ))}
+          <motion.div
+            style={
+              reduced
+                ? undefined
+                : {
+                    rotateX: deckRotateX,
+                    scale: deckScale,
+                    y: deckY,
+                    transformStyle: "preserve-3d",
+                  }
+            }
+            className="will-change-transform"
+          >
+            <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+              <div className="webdev-scroll-row flex w-max gap-5">
+                {[...SCREENSHOTS_ROW_1, ...SCREENSHOTS_ROW_1].map((src, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={`r1-${i}`}
+                    src={src}
+                    alt=""
+                    loading={i < 7 ? "eager" : "lazy"}
+                    className="h-64 w-auto rounded-xl border border-ink/[0.08] shadow-lg transition-transform duration-300 hover:scale-[1.03] sm:h-80 lg:h-[22rem]"
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Stage floor: soft ground shadow beneath the deck */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-[12%] bottom-6 h-10 rounded-[100%] bg-ink/[0.12] blur-2xl"
+          />
         </div>
       </div>
     </section>

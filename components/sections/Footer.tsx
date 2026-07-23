@@ -1,4 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
 function FacebookIcon({ className }: { className?: string }) {
   return (
@@ -82,7 +86,105 @@ const POLICY_LINKS = [
   { label: "Refund Policy", href: "/refund" },
 ];
 
+const WORDMARK = "ITBIZONE".split("");
+
 export default function Footer() {
+  const markRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mark = markRef.current;
+    if (!mark) return;
+
+    const letters = gsap.utils.toArray<HTMLElement>("[data-mark-letter]", mark);
+    const glass = mark.querySelector<HTMLElement>("[data-mark-glass]");
+
+    if (prefersReducedMotion()) {
+      // Park the glass pane mid-wordmark and leave everything else static.
+      if (glass) gsap.set(glass, { xPercent: 36 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // Letters rise into place, one after another
+      gsap.fromTo(
+        letters,
+        { yPercent: 32, autoAlpha: 0 },
+        {
+          yPercent: 0,
+          autoAlpha: 1,
+          duration: 1,
+          ease: "power4.out",
+          stagger: 0.055,
+          scrollTrigger: { trigger: mark, start: "top 95%", once: true },
+        }
+      );
+
+      // Slow horizontal drift as the footer scrolls through
+      gsap.fromTo(
+        "[data-mark-track]",
+        { xPercent: 2.5 },
+        {
+          xPercent: -2.5,
+          ease: "none",
+          scrollTrigger: {
+            trigger: mark,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+
+      // Frosted pane sweeping across the lettering — only while in view
+      if (glass) {
+        const sweep = gsap.fromTo(
+          glass,
+          { xPercent: -105 },
+          {
+            xPercent: 178,
+            duration: 5.5,
+            ease: "power1.inOut",
+            repeat: -1,
+            repeatDelay: 1.2,
+          }
+        );
+        ScrollTrigger.create({
+          trigger: mark,
+          start: "top bottom",
+          end: "bottom top",
+          onToggle: (self) => (self.isActive ? sweep.play() : sweep.pause()),
+        });
+      }
+    }, mark);
+
+    // Each letter lifts under the cursor and springs back
+    const enter = (e: Event) =>
+      gsap.to(e.currentTarget as HTMLElement, {
+        yPercent: -7,
+        duration: 0.4,
+        ease: "power3.out",
+      });
+    const leave = (e: Event) =>
+      gsap.to(e.currentTarget as HTMLElement, {
+        yPercent: 0,
+        duration: 0.9,
+        ease: "elastic.out(1, 0.35)",
+      });
+
+    letters.forEach((letter) => {
+      letter.addEventListener("mouseenter", enter);
+      letter.addEventListener("mouseleave", leave);
+    });
+
+    return () => {
+      letters.forEach((letter) => {
+        letter.removeEventListener("mouseenter", enter);
+        letter.removeEventListener("mouseleave", leave);
+      });
+      ctx.revert();
+    };
+  }, []);
+
   return (
     <footer className="relative overflow-hidden bg-dark text-white">
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 sm:px-10 sm:pt-24">
@@ -182,12 +284,30 @@ export default function Footer() {
 
       {/* Giant watermark wordmark, clipped at the bottom edge */}
       <div
+        ref={markRef}
         aria-hidden="true"
-        className="pointer-events-none relative mt-8 h-[15vw] select-none overflow-hidden sm:mt-12"
+        className="relative mt-8 h-[15vw] select-none overflow-hidden sm:mt-12"
       >
-        <span className="absolute inset-x-0 top-0 block whitespace-nowrap text-center font-heading text-[27vw] font-bold leading-none tracking-tight text-white">
-          ITBIZONE
+        <span
+          data-mark-track
+          className="absolute inset-x-0 top-0 block whitespace-nowrap text-center font-heading text-[27vw] font-bold leading-none tracking-tight"
+        >
+          {WORDMARK.map((letter, i) => (
+            <span
+              key={`${letter}-${i}`}
+              data-mark-letter
+              className="inline-block text-white will-change-transform"
+            >
+              {letter}
+            </span>
+          ))}
         </span>
+
+        {/* Frosted glass pane that sweeps across the lettering */}
+        <span
+          data-mark-glass
+          className="pointer-events-none absolute inset-y-0 left-0 block w-[58%] bg-white/[0.04] backdrop-blur-[22px] [mask-image:linear-gradient(to_right,transparent_0%,black_28%,black_72%,transparent_100%)]"
+        />
       </div>
     </footer>
   );

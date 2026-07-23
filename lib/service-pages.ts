@@ -771,7 +771,11 @@ export const SERVICE_PAGES: Record<string, ServicePage> = {
   },
 };
 
-export const SERVICE_SLUGS = Object.keys(SERVICE_PAGES);
+// ui-ux-design has a bespoke page at app/services/ui-ux-design, so it is
+// excluded from the generic [slug] route's static params.
+export const SERVICE_SLUGS = Object.keys(SERVICE_PAGES).filter(
+  (slug) => slug !== "ui-ux-design",
+);
 
 export function getServicePage(slug: string): ServicePage | undefined {
   return SERVICE_PAGES[slug];

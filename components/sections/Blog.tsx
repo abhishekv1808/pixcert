@@ -57,6 +57,26 @@ export default function Blog() {
           },
         },
       );
+
+      // Images pan gently inside their frames while scrolling. The tween
+      // targets a wrapper (oversized vertically) so the CSS hover zoom on
+      // the image itself keeps working.
+      gsap.utils.toArray<HTMLElement>("[data-post-img]").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: -5 },
+          {
+            yPercent: 5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -88,13 +108,18 @@ export default function Blog() {
             >
               <article>
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                  <Image
-                    src={post.image}
-                    alt={post.alt}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
+                  <div
+                    data-post-img
+                    className="absolute -inset-y-[8%] inset-x-0"
+                  >
+                    <Image
+                      src={post.image}
+                      alt={post.alt}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                  </div>
                   <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
                     {post.category}
                   </span>

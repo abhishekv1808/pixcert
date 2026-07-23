@@ -13,6 +13,7 @@ import QuoteForm from "@/components/sections/QuoteForm";
 import CTABanner from "@/components/sections/CTABanner";
 import Footer from "@/components/sections/Footer";
 import FloatingCTA from "@/components/ui/FloatingCTA";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 export const metadata: Metadata = {
   title: "Website Development in Bangalore — ITBIZONE",
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
 export default function WebDevelopmentPage() {
   return (
     <>
+      <ScrollProgress />
       <Navbar />
       <main>
         {/* Dark/cream rhythm: no two dark sections sit adjacent. */}

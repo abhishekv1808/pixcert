@@ -102,6 +102,45 @@ export default function CoreFeatures() {
             },
           }
         );
+
+        // Corner glows drift as the panel scrolls, so the light feels alive
+        gsap.fromTo(
+          "[data-feature-glow]",
+          { yPercent: -7 },
+          {
+            yPercent: 7,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+
+        // Each card column scrolls at a slightly different speed. The
+        // parallax lives on the wrapper so it never fights the entrance
+        // tween (which animates the inner card's y).
+        const drifts = [18, 44, 28];
+        gsap.utils
+          .toArray<HTMLElement>("[data-feature-col]")
+          .forEach((col, i) => {
+            gsap.fromTo(
+              col,
+              { y: drifts[i] ?? 20 },
+              {
+                y: -(drifts[i] ?? 20),
+                ease: "none",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: true,
+                },
+              }
+            );
+          });
       }
 
       gsap.utils.toArray<HTMLElement>("[data-feature-counter]").forEach((el) => {
@@ -142,8 +181,9 @@ export default function CoreFeatures() {
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-dark">
         {/* Corner glows + grain */}
         <div
+          data-feature-glow
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(55%_45%_at_100%_0%,rgba(255,74,23,0.28)_0%,transparent_70%),radial-gradient(45%_40%_at_0%_100%,rgba(255,74,23,0.14)_0%,transparent_70%),radial-gradient(40%_35%_at_0%_0%,rgba(255,74,23,0.1)_0%,transparent_70%)]"
+          className="absolute -inset-y-[8%] inset-x-0 bg-[radial-gradient(55%_45%_at_100%_0%,rgba(255,74,23,0.28)_0%,transparent_70%),radial-gradient(45%_40%_at_0%_100%,rgba(255,74,23,0.14)_0%,transparent_70%),radial-gradient(40%_35%_at_0%_0%,rgba(255,74,23,0.1)_0%,transparent_70%)]"
         />
         <div aria-hidden="true" className="grain-overlay absolute inset-0" />
 
@@ -169,27 +209,28 @@ export default function CoreFeatures() {
 
           <div className="mt-16 grid gap-6 md:grid-cols-3">
             {FEATURES.map((feature) => (
-              <article
-                key={feature.label}
-                data-feature-card
-                className="flex flex-col rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-8"
-              >
-                <p className="font-heading text-4xl font-bold text-white sm:text-5xl">
-                  <span data-feature-counter={feature.value}>
-                    {feature.value}
-                  </span>
-                  {feature.suffix}
-                </p>
-                <h3 className="mt-3 font-heading text-base font-bold text-white">
-                  {feature.label}
-                </h3>
-                <div className="flex flex-1 items-center justify-center py-10">
-                  <feature.Icon />
-                </div>
-                <p className="border-t border-white/10 pt-6 text-sm leading-relaxed text-white/60">
-                  {feature.description}
-                </p>
-              </article>
+              <div key={feature.label} data-feature-col className="flex">
+                <article
+                  data-feature-card
+                  className="flex w-full flex-col rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-8"
+                >
+                  <p className="font-heading text-4xl font-bold text-white sm:text-5xl">
+                    <span data-feature-counter={feature.value}>
+                      {feature.value}
+                    </span>
+                    {feature.suffix}
+                  </p>
+                  <h3 className="mt-3 font-heading text-base font-bold text-white">
+                    {feature.label}
+                  </h3>
+                  <div className="flex flex-1 items-center justify-center py-10">
+                    <feature.Icon />
+                  </div>
+                  <p className="border-t border-white/10 pt-6 text-sm leading-relaxed text-white/60">
+                    {feature.description}
+                  </p>
+                </article>
+              </div>
             ))}
           </div>
 

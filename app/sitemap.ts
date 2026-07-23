@@ -3,12 +3,14 @@ import { SERVICE_SLUGS } from "@/lib/service-pages";
 
 const BASE_URL = "https://www.itbizone.com";
 
-// Top-level + standalone routes (web-development has its own bespoke page)
+// Top-level + standalone routes (web-development and ui-ux-design have
+// their own bespoke pages)
 const STATIC_PATHS = [
   "",
   "/about",
   "/services",
   "/services/web-development",
+  "/services/ui-ux-design",
   "/portfolio",
   "/contact",
   "/terms",
