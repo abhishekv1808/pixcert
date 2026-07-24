@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, X } from "lucide-react";
 import type { GuideMode } from "@/components/three/GuideBot";
+import BizoChat from "@/components/sections/BizoChat";
 
 /* GuideBot renders a WebGL canvas — client-only, loaded after hydration */
 const GuideBot = dynamic(() => import("@/components/three/GuideBot"), {
@@ -33,6 +34,7 @@ export default function SiteGuide({ stops }: { stops: GuideStop[] }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dismissed, setDismissed] = useState(false);
   const [ready, setReady] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const [greeting, setGreeting] = useState<string | null>(null);
 
@@ -145,15 +147,12 @@ export default function SiteGuide({ stops }: { stops: GuideStop[] }) {
     showGreeting(pickGreeting(), false); // let it linger briefly, then clear
   };
 
-  // Click / tap → wave burst, then lead the visitor to the next section
+  // Click / tap → wave burst, then open the AI chat
   const onPoke = () => {
     greet.current += 1;
     poke.current += 1;
-    showGreeting("Woohoo! 🎉 Follow me!", hovering.current > 0.5);
-    const nextIdx = (activeRef.current + 1) % stops.length;
-    document
-      .getElementById(stops[nextIdx].id)
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    showGreeting("Let's chat! 💬", hovering.current > 0.5);
+    setChatOpen(true);
   };
 
   // Clean up the pending greeting timer on unmount
@@ -181,7 +180,13 @@ export default function SiteGuide({ stops }: { stops: GuideStop[] }) {
   const active = stops[activeIndex];
 
   return (
-    <div className="pointer-events-none fixed bottom-3 right-4 z-40 hidden flex-col items-end lg:flex">
+    <>
+      {/* Mascot cluster — hidden while the chat panel is open */}
+      <div
+        className={`pointer-events-none fixed bottom-3 right-4 z-40 hidden flex-col items-end lg:flex ${
+          chatOpen ? "lg:hidden" : ""
+        }`}
+      >
       {/* Speech bubble — shows the section tip, or an excited greeting */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -218,7 +223,7 @@ export default function SiteGuide({ stops }: { stops: GuideStop[] }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* The mascot — greets on hover, jumps to the next section on click */}
+      {/* The mascot — greets on hover, opens the AI chat on click */}
       <button
         type="button"
         onClick={onPoke}
@@ -226,7 +231,7 @@ export default function SiteGuide({ stops }: { stops: GuideStop[] }) {
         onMouseLeave={onLeave}
         onFocus={onEnter}
         onBlur={onLeave}
-        aria-label="Say hi to Bizo, or click to jump to the next section"
+        aria-label="Chat with Bizo, our AI assistant"
         className="pointer-events-auto -mt-2 size-[230px] cursor-pointer"
       >
         <span className="pointer-events-none block size-full">
@@ -240,6 +245,10 @@ export default function SiteGuide({ stops }: { stops: GuideStop[] }) {
           />
         </span>
       </button>
-    </div>
+      </div>
+
+      {/* AI chat panel */}
+      <BizoChat open={chatOpen} onClose={() => setChatOpen(false)} />
+    </>
   );
 }

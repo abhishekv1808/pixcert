@@ -23,6 +23,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import PillButton from "@/components/ui/PillButton";
+import { track } from "@/lib/analytics";
 import { gsap, SplitText, prefersReducedMotion } from "@/lib/gsap";
 
 import HeroScreenshotCarousel from "@/components/sections/HeroScreenshotCarousel";
@@ -371,6 +372,9 @@ export default function WebDevHero() {
                 href="https://wa.me/919535111129"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  track("cta_click", { action: "whatsapp", location: "webdev-hero" })
+                }
                 className="group inline-flex items-center gap-2 rounded-full border border-ink/15 px-7 py-4 text-sm font-semibold text-ink transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-white"
               >
                 <MessageCircle aria-hidden="true" className="size-4" />

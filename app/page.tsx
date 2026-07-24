@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 /* Narration + per-section pose for the walking site-guide mascot.
    Click the mascot to hop to the next section. */
 const GUIDE_STOPS: GuideStop[] = [
-  { id: "home", label: "Welcome", tip: "Hi, I'm Bizo! Tap me and I'll walk you through our world.", mode: "wave" },
+  { id: "home", label: "Welcome", tip: "Hi, I'm Bizo! Tap me to chat — ask me anything about ITBIZONE.", mode: "wave" },
   { id: "about", label: "About Us", tip: "A Bangalore studio crafting websites, brands & growth.", mode: "present" },
   { id: "services", label: "Services", tip: "Everything your brand needs to launch and grow online.", mode: "present" },
   { id: "portfolio", label: "Portfolio", tip: "Check out some recent work we're proud of — right here!", mode: "point" },

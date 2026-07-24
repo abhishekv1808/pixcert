@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { track } from "@/lib/analytics";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 /* Three.js ember particles — client-only, loaded after hydration */
@@ -129,6 +130,9 @@ export default function CTABanner() {
             <div ref={buttonRef} className="will-change-transform">
               <Link
                 href="mailto:info@itbizone.com"
+                onClick={() =>
+                  track("cta_click", { action: "email", location: "cta-banner" })
+                }
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-ink shadow-xl shadow-primary-deep/30 transition-colors hover:bg-cream"
               >
                 Get a Free Quote
@@ -142,6 +146,9 @@ export default function CTABanner() {
               href="https://wa.me/919535111129"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                track("cta_click", { action: "whatsapp", location: "cta-banner" })
+              }
               className="group inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-4 text-sm font-semibold text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-ink"
             >
               <MessageCircle aria-hidden="true" className="size-4" />

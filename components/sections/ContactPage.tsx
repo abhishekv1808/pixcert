@@ -6,9 +6,11 @@ import {
   ArrowUpRight,
   Calendar,
   Check,
+  CheckCircle2,
   ChevronRight,
   Clock,
   Coffee,
+  Loader2,
   Mail,
   MapPin,
   MessageCircle,
@@ -17,6 +19,8 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import { submitLead } from "@/lib/submitLead";
+import { track } from "@/lib/analytics";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 /* ------------------------------------------------------------------ */
@@ -128,6 +132,8 @@ function ChipGroup({
 /*  Component                                                         */
 /* ------------------------------------------------------------------ */
 
+type Status = "idle" | "submitting" | "success" | "error";
+
 export default function ContactPage() {
   const sectionRef = useRef<HTMLElement>(null);
   const [service, setService] = useState("");
@@ -136,6 +142,9 @@ export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [company, setCompany] = useState(""); // honeypot
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!sectionRef.current || prefersReducedMotion()) return;
@@ -195,23 +204,32 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const body = [
-      `Hi ITBIZONE,`,
-      "",
-      `Name: ${name || "Not provided"}`,
-      `Service: ${service || "Not selected"}`,
-      `Budget: ${budget || "Not selected"}`,
-      `Phone: ${phone ? `+91 ${phone}` : "Not provided"}`,
-      `Email: ${email || "Not provided"}`,
-      "",
-      `Message:`,
-      message || "(No message)",
-    ].join("\n");
-    window.location.href = `mailto:info@itbizone.com?subject=${encodeURIComponent(
-      "Contact Enquiry — ITBIZONE",
-    )}&body=${encodeURIComponent(body)}`;
+    if (status === "submitting") return;
+    setStatus("submitting");
+    setError("");
+    try {
+      await submitLead({
+        source: "contact",
+        name,
+        email,
+        phone: phone ? `+91 ${phone}` : undefined,
+        service: service || undefined,
+        budget: budget || undefined,
+        message: message || undefined,
+        company,
+      });
+      setStatus("success");
+      track("lead_submit", {
+        source: "contact",
+        service: service || undefined,
+        budget: budget || undefined,
+      });
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    }
   };
 
   return (
@@ -294,6 +312,9 @@ export default function ContactPage() {
                 href="https://wa.me/919535111129"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  track("cta_click", { action: "whatsapp", location: "contact-hero" })
+                }
                 className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-emerald-500 hover:bg-emerald-600"
               >
                 <MessageCircle className="size-4" />
@@ -440,15 +461,61 @@ export default function ContactPage() {
               data-contact-form-block
               className="rounded-3xl border border-ink/10 bg-white p-9 sm:p-11"
             >
-              <h3 className="font-heading text-2xl font-bold text-ink">
-                Send us a message
-              </h3>
-              <p className="mt-2 text-sm text-body">
-                Fill out the form and we&apos;ll get back to you within 24
-                hours.
-              </p>
+              {status === "success" ? (
+                <div className="flex min-h-[420px] flex-col items-center justify-center py-8 text-center">
+                  <span className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <CheckCircle2 aria-hidden="true" className="size-9" />
+                  </span>
+                  <h3 className="mt-6 font-heading text-2xl font-bold text-ink">
+                    Message sent!
+                  </h3>
+                  <p className="mt-3 max-w-sm text-sm leading-relaxed text-body">
+                    Thanks{name ? `, ${name.split(" ")[0]}` : ""} — we&apos;ve
+                    received your message and will get back to you within 24
+                    hours at{" "}
+                    <span className="font-semibold text-ink">
+                      {email || "your email"}
+                    </span>
+                    .
+                  </p>
+                  <a
+                    href="https://wa.me/919535111129"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-7 inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-primary hover:bg-primary hover:text-white"
+                  >
+                    <MessageCircle aria-hidden="true" className="size-4" />
+                    Chat with us on WhatsApp
+                  </a>
+                </div>
+              ) : (
+                <>
+                  <h3 className="font-heading text-2xl font-bold text-ink">
+                    Send us a message
+                  </h3>
+                  <p className="mt-2 text-sm text-body">
+                    Fill out the form and we&apos;ll get back to you within 24
+                    hours.
+                  </p>
 
-              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                  <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                    {/* Honeypot — hidden from real users, catches bots */}
+                    <div
+                      className="absolute -left-[9999px]"
+                      aria-hidden="true"
+                    >
+                      <label>
+                        Company
+                        <input
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={company}
+                          onChange={(e) => setCompany(e.target.value)}
+                        />
+                      </label>
+                    </div>
+
                 {/* Name + Email row */}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block">
@@ -539,18 +606,48 @@ export default function ContactPage() {
                   <Coffee aria-hidden="true" className="size-4 shrink-0" />
                 </p>
 
+                {status === "error" && (
+                  <p
+                    role="alert"
+                    className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-medium text-red-600"
+                  >
+                    {error || "Something went wrong."} You can also reach us on{" "}
+                    <a
+                      href="https://wa.me/919535111129"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold underline underline-offset-2"
+                    >
+                      WhatsApp
+                    </a>
+                    .
+                  </p>
+                )}
+
                 {/* Submit */}
                 <div className="flex justify-center pt-2">
                   <button
                     type="submit"
-                    className="group inline-flex items-center gap-2.5 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
+                    disabled={status === "submitting"}
+                    className="group inline-flex items-center gap-2.5 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-primary-deep disabled:cursor-not-allowed disabled:opacity-70"
                   >
-                    <Send className="size-4" />
-                    Send Message
-                    <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
+                    {status === "submitting" ? (
+                      <>
+                        <Loader2 className="size-4 animate-spin" />
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        <Send className="size-4" />
+                        Send Message
+                        <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
+                </>
+              )}
             </div>
           </div>
 
@@ -637,6 +734,9 @@ export default function ContactPage() {
                   href="https://calendly.com/abhishek-v1808/30min"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() =>
+                    track("cta_click", { action: "calendly", location: "contact-page" })
+                  }
                   className="group mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary-deep"
                 >
                   Pick a Time

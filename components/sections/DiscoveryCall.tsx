@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { CalendarCheck } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import CursorGlow from "@/components/ui/CursorGlow";
+import { track } from "@/lib/analytics";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const CALENDLY_URL = "https://calendly.com/abhishek-v1808/30min";
@@ -92,6 +93,12 @@ export default function DiscoveryCall() {
               target="_blank"
               rel="noopener noreferrer"
               data-discovery-cta
+              onClick={() =>
+                track("cta_click", {
+                  action: "calendly",
+                  location: "discovery-call",
+                })
+              }
               className="inline-flex items-center gap-2.5 rounded-full bg-primary px-7 py-4 text-sm font-semibold text-white transition-colors will-change-transform hover:bg-primary-deep"
             >
               <CalendarCheck aria-hidden="true" className="size-4" />

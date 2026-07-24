@@ -1,9 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, Clock, Coffee, FileText, PhoneCall, Shield } from "lucide-react";
+import Link from "next/link";
+import {
+  Check,
+  CheckCircle2,
+  Clock,
+  Coffee,
+  FileText,
+  Loader2,
+  MessageCircle,
+  PhoneCall,
+  Shield,
+} from "lucide-react";
 import CursorGlow from "@/components/ui/CursorGlow";
 import { cn } from "@/lib/utils";
+import { submitLead } from "@/lib/submitLead";
+import { track } from "@/lib/analytics";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 const WEBSITE_TYPES = [
@@ -73,12 +86,17 @@ function ChipGroup({
   );
 }
 
+type Status = "idle" | "submitting" | "success" | "error";
+
 export default function QuoteForm() {
   const sectionRef = useRef<HTMLElement>(null);
   const [websiteType, setWebsiteType] = useState("");
   const [enquirySource, setEnquirySource] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState(""); // honeypot
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!sectionRef.current || prefersReducedMotion()) return;
@@ -105,19 +123,31 @@ export default function QuoteForm() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const body = [
-      "Hi ITBIZONE, I'd like a quote.",
-      "",
-      `Website type: ${websiteType || "Not selected"}`,
-      `Enquiry sources: ${enquirySource || "Not selected"}`,
-      `Phone: ${phone ? `+91 ${phone}` : "Not provided"}`,
-      `Email: ${email || "Not provided"}`,
-    ].join("\n");
-    window.location.href = `mailto:info@itbizone.com?subject=${encodeURIComponent(
-      "Quote Request — ITBIZONE"
-    )}&body=${encodeURIComponent(body)}`;
+    if (status === "submitting") return;
+    setStatus("submitting");
+    setError("");
+    try {
+      await submitLead({
+        source: "quote",
+        email,
+        phone: phone ? `+91 ${phone}` : undefined,
+        company,
+        details: {
+          websiteType: websiteType || undefined,
+          enquirySource: enquirySource || undefined,
+        },
+      });
+      setStatus("success");
+      track("lead_submit", {
+        source: "quote",
+        website_type: websiteType || undefined,
+      });
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    }
   };
 
   return (
@@ -170,7 +200,48 @@ export default function QuoteForm() {
             data-quote-block
             className="rounded-3xl border border-ink/10 bg-white p-9 transition-[border-color,box-shadow] duration-300 focus-within:border-primary/30 focus-within:shadow-xl focus-within:shadow-primary/[0.06] sm:p-11"
           >
+            {status === "success" ? (
+              <div className="flex h-full flex-col items-center justify-center py-8 text-center">
+                <span className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <CheckCircle2 aria-hidden="true" className="size-9" />
+                </span>
+                <h3 className="mt-6 font-heading text-2xl font-bold text-ink">
+                  Request received!
+                </h3>
+                <p className="mt-3 max-w-sm text-sm leading-relaxed text-body">
+                  Thanks — we&apos;ve got your details and will send your quote
+                  within 24 hours. Keep an eye on{" "}
+                  <span className="font-semibold text-ink">
+                    {email || "your inbox"}
+                  </span>
+                  .
+                </p>
+                <Link
+                  href="https://wa.me/919535111129"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-7 inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-primary hover:bg-primary hover:text-white"
+                >
+                  <MessageCircle aria-hidden="true" className="size-4" />
+                  Chat with us on WhatsApp
+                </Link>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit} className="space-y-7">
+              {/* Honeypot — hidden from real users, catches bots */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label>
+                  Company
+                  <input
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
+                </label>
+              </div>
+
               <ChipGroup
                 label="What kind of website do you need?"
                 options={WEBSITE_TYPES}
@@ -225,16 +296,45 @@ export default function QuoteForm() {
                 </div>
               </div>
 
+              {status === "error" && (
+                <p
+                  role="alert"
+                  className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-medium text-red-600"
+                >
+                  {error || "Something went wrong."} You can also reach us on{" "}
+                  <Link
+                    href="https://wa.me/919535111129"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold underline underline-offset-2"
+                  >
+                    WhatsApp
+                  </Link>
+                  .
+                </p>
+              )}
+
               <div className="flex justify-center pt-2">
                 <button
                   type="submit"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-deep hover:shadow-xl hover:shadow-primary/30 active:translate-y-0 active:scale-[0.98]"
+                  disabled={status === "submitting"}
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-deep hover:shadow-xl hover:shadow-primary/30 active:translate-y-0 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
                 >
-                  <FileText aria-hidden="true" className="size-4" />
-                  Get Quote
+                  {status === "submitting" ? (
+                    <>
+                      <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      <FileText aria-hidden="true" className="size-4" />
+                      Get Quote
+                    </>
+                  )}
                 </button>
               </div>
             </form>
+            )}
           </div>
         </div>
       </div>

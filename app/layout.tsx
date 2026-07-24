@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScrolling from "@/components/providers/SmoothScrolling";
 import StructuredData from "@/components/seo/StructuredData";
+import Analytics from "@/components/analytics/Analytics";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
     <html lang="en" className={`${bricolage.variable} ${inter.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <StructuredData />
+        <Analytics />
         <SmoothScrolling>{children}</SmoothScrolling>
       </body>
     </html>
