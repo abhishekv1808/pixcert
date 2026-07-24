@@ -9,6 +9,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 import type { WireVariant } from "@/components/three/WireShape";
+import LazyThree from "@/components/three/LazyThree";
 
 /* Live 3D wireframe icons (desktop) — the SVGs below stay as fallback */
 const WireShape = dynamic(() => import("@/components/three/WireShape"), {
@@ -242,10 +243,12 @@ export default function CoreFeatures() {
                   </h3>
                   <div className="flex flex-1 items-center justify-center py-6">
                     <div className="relative size-44">
-                      <WireShape
-                        variant={feature.shape}
-                        fallback={<feature.Icon />}
-                      />
+                      <LazyThree>
+                        <WireShape
+                          variant={feature.shape}
+                          fallback={<feature.Icon />}
+                        />
+                      </LazyThree>
                     </div>
                   </div>
                   <p className="border-t border-white/10 pt-6 text-sm leading-relaxed text-white/60">

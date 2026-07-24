@@ -9,6 +9,8 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import CursorGlow from "@/components/ui/CursorGlow";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
+import LazyThree from "@/components/three/LazyThree";
+
 /* Three.js wireframe orb — client-only, loaded after hydration */
 const TechOrb = dynamic(() => import("@/components/three/TechOrb"), {
   ssr: false,
@@ -124,7 +126,9 @@ export default function TechStack() {
           aria-hidden="true"
           className="absolute -top-10 right-[2%] hidden size-80 lg:block xl:right-[5%]"
         >
-          <TechOrb />
+          <LazyThree>
+            <TechOrb />
+          </LazyThree>
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 py-20 sm:px-10 lg:py-28">

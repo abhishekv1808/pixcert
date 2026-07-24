@@ -16,6 +16,8 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import CursorGlow from "@/components/ui/CursorGlow";
 
+import LazyThree from "@/components/three/LazyThree";
+
 /* Three.js floating browser frames — client-only */
 const ShowcaseFrames = dynamic(
   () => import("@/components/three/ShowcaseFrames"),
@@ -357,7 +359,9 @@ export default function WebDevShowcase() {
     >
       {/* Wireframe browser windows floating in depth behind the grid */}
       <div aria-hidden="true" className="absolute inset-0 hidden md:block">
-        <ShowcaseFrames progress={frameProgress} />
+        <LazyThree>
+          <ShowcaseFrames progress={frameProgress} />
+        </LazyThree>
       </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-6">

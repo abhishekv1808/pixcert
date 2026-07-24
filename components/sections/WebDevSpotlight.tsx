@@ -7,6 +7,8 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 
+import LazyThree from "@/components/three/LazyThree";
+
 /* Three.js 3D stage behind the pinned story — client-only */
 const SpotlightStage = dynamic(
   () => import("@/components/three/SpotlightStage"),
@@ -303,7 +305,9 @@ export default function WebDevSpotlight() {
           {/* Three.js space: wireframe floor, particle depth field, and
               portal rings — all scrubbed by the same scroll progress */}
           <div aria-hidden="true" className="absolute inset-0 hidden lg:block">
-            <SpotlightStage progress={stageProgress} />
+            <LazyThree>
+              <SpotlightStage progress={stageProgress} />
+            </LazyThree>
           </div>
 
           {/* ====================== Desktop pinned stage ====================== */}

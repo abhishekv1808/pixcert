@@ -13,6 +13,8 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PillButton from "@/components/ui/PillButton";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
+import LazyThree from "@/components/three/LazyThree";
+
 /* Ambient Three.js flow field behind the content — client-only */
 const MethodologyFlow = dynamic(
   () => import("@/components/three/MethodologyFlow"),
@@ -187,7 +189,9 @@ export default function Process() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 hidden lg:block"
           >
-            <MethodologyFlow progress={flowProgress} />
+            <LazyThree>
+              <MethodologyFlow progress={flowProgress} />
+            </LazyThree>
           </div>
 
           <div className="relative mx-auto w-full max-w-7xl px-6 py-24 sm:px-10 lg:py-10">

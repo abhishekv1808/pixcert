@@ -7,6 +7,8 @@ import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { track } from "@/lib/analytics";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
+import LazyThree from "@/components/three/LazyThree";
+
 /* Three.js ember particles — client-only, loaded after hydration */
 const EmberField = dynamic(() => import("@/components/three/EmberField"), {
   ssr: false,
@@ -95,7 +97,9 @@ export default function CTABanner() {
         <div aria-hidden="true" className="grain-overlay absolute inset-0" />
 
         {/* Embers drift upward and part around the cursor */}
-        <EmberField />
+        <LazyThree className="absolute inset-0">
+          <EmberField />
+        </LazyThree>
 
         {/* Giant hollow watermark clipped at the bottom edge */}
         <span
